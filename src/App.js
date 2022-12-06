@@ -3,12 +3,12 @@ import LandingPage from './Page/LandingPage'
 import Search from './Page/Search'
 import Navigation from './Page/Navigation'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter,Router, Routes, Route } from "react-router-dom";
 import Footer from './Page/Footer';
 function App() {
   return (
     <div >
-   <BrowserRouter>
+   <Router>
    <Navigation/>
  
     <Routes>
@@ -19,7 +19,7 @@ function App() {
       </Route>
     </Routes>
     <Footer/>
-  </BrowserRouter>
+  </Router>
     </div>
   );
 }
