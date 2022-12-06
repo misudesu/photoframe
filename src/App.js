@@ -8,7 +8,7 @@ import Footer from './Page/Footer';
 function App() {
   return (
     <div >
-   <Router>
+   <HashRouter>
    <Navigation/>
  
     <Routes>
@@ -19,7 +19,7 @@ function App() {
       </Route>
     </Routes>
     <Footer/>
-  </Router>
+  </HashRouter>
     </div>
   );
 }
