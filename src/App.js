@@ -3,7 +3,7 @@ import LandingPage from './Page/LandingPage'
 import Search from './Page/Search'
 import Navigation from './Page/Navigation'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { HashRouter,Router, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Footer from './Page/Footer';
 function App() {
   return (
