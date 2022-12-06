@@ -1,6 +1,6 @@
 {
-  "homepage": "https://misudesu.github.io/yeneFrame",
-  "name": "photoframe",
+  "homepage": "https://misudesu.github.io/yeneframes",
+  "name": "yeneframes",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
