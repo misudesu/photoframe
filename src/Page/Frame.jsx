@@ -263,7 +263,7 @@ const Frame = () => {
                 value={selectedOption.value}
                 handleChange={handleSliderChange}
               />
-              <div className="d-flex  align-items-end justify-center bg-blue-600  p-3 rounded-md text-white items-center  gap-8 ">
+              <div className="d-flex  align-items-end justify-center bg-blue-600  p-3 rounded-md text-white items-center  gap-4 ">
                 <button onClick={Dic}>
                   <BsZoomOut size={20} />
                 </button>

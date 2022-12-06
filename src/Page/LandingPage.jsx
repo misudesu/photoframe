@@ -7,7 +7,7 @@ import { BsFillRecordFill } from "react-icons/bs";
 const LandingPage=()=>{
   const opts = {
     height: '290',
-    width: '540',
+    width: '400',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
@@ -37,13 +37,13 @@ return(
 <div className='  flex  items-center justify-center mt-3'>
 <div className=' grid grid-cols-1 gap-4 items-center p-5'>
 
-<div className='md:m-4'>
-<p className='text-2xl font-bold text-center '>Get inspired and stimulate your unlimited potential</p>
+<div className=''>
+<p className='text-3xl font-bold text-center '>Get inspired and stimulate your unlimited potential</p>
 
-<p className=' text-center text-sm'>{Database.secondDis}</p>
+<p className='  text-justify md:text-center '>{Database.secondDis}</p>
 
 </div>
-<img src={Database.image2} className='rounded-xl h-92'/>
+<img src={Database.image2} className='rounded-xl  md:h-92'/>
 </div>
 </div>
 
