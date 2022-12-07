@@ -41,7 +41,6 @@ return(
 <p className='text-3xl font-bold text-center '>Get inspired and stimulate your unlimited potential</p>
 
 <p className='  text-justify md:text-center '>{Database.secondDis}</p>
-
 </div>
 <img src={Database.image2} className='rounded-xl  md:h-92'/>
 </div>
