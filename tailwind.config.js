@@ -5,6 +5,13 @@ module.exports = {
   ],
   theme: {
     extend: {},
+     backgroundSize: {
+      'auto': 'auto',
+      'cover': 'cover',
+      'contain': 'contain',
+      'smolle': '260px',
+      'large': '400px',
+    }
   },
   plugins: [],
 }

@@ -31,16 +31,16 @@ const Search=()=>{
 </div>
 
 <div >
-   <div className='flex flex-grow gap-4 mt-4  items-center justify-center   '>
+   <div className='flex flex-grow md:gap-4 mt-4  items-center justify-center   '>
    <FilterResults
           value={search.value}
           data={search.data}
           renderResults={results => (
-            <div className='flex gap-4'>
+            <div className='flex md:gap-4 '>
               {results.map(el => (
                 <div className=''>
         <Link to={`/frame`} state={{SelectedGraphics:el.img}}>
-           <div key={results.length} className='rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 '>
+           <div key={results.length} className='rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
    <img src={el.img} className='w-32  ' alt={el.name} />
    </div>
    </Link>

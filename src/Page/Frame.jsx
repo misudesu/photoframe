@@ -86,6 +86,7 @@ const Frame = () => {
   const [image, setImage] = useState({
     image: "one",
     size: 400,
+    sizesm:280,
     orentation: "",
     rotate: "0",
     zindex: "-z-50",
@@ -201,11 +202,11 @@ const Frame = () => {
                 }}
               >
                 <div
-                  className="w-[260px] h-[260px] md:w-[380px] md:h-[380px]"
+                  className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
                     backgroundImage: `url(${graphics})`,
-                    backgroundSize: `400px,400px`,
+                 
                     overflow: "hidden",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center center",
@@ -214,16 +215,15 @@ const Frame = () => {
                     overflow: "hidden",
                   }}
                 ></div>
-                <div
+                <div 
                   id="draggable"
-                  className="draggable "
+                  className={`draggable bg-auto `}
                   style={{
                     position: "absolute",
                     backgroundImage: `url(${image.image})`,
                     touchAction: "none",
                     userselect: "none",
-                    backgroundSize: ` ${image.size}px,${image.size}px`,
-
+                     backgroundSize: `  ${image.size}px,${image.size}px`,
                     width: `${image.size}px`,
                     height: `${image.size}px`,
                     backgroundRepeat: "no-repeat",
@@ -279,6 +279,7 @@ const Frame = () => {
                 </button>
                 Adjust
                 <input
+                className='bg-black'
                   type="checkbox"
                   id="check"
                   checked={value}
