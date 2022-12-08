@@ -42,7 +42,7 @@ return(
 
 <p className='  text-justify md:text-center '>{Database.secondDis}</p>
 </div>
-<img src={Database.image2} className='rounded-xl h-48  md:h-92'/>
+<img src={Database.image2} className='rounded-xl h-92'/>
 </div>
 </div>
 
