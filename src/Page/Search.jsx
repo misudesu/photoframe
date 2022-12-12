@@ -19,7 +19,7 @@ const Search=()=>{
       };
 
     return(
-        <div className=' bg-gradient-to-b from-indigo-500  h-screen '>
+        <div className=' bg-gradient-to-b from-gray-300  h-screen '>
 <div className='flex  items-center justify-center  '>
     <div className='flex bg-[#FFFFFF] gap-2 p-2 rounded-lg w-8/12 items-center justify-center mt-[100px] '>
     

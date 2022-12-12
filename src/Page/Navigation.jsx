@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
-
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import {Link}  from "react-router-dom"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 const Navigation = () => {
@@ -7,45 +9,104 @@ const Navigation = () => {
   const eventHandler=()=>{
     setNav(!nav)
   }
+
+  const navigation = [
+    { name: 'የኔ Frame', href: '/', current: true },
+    { name: 'Search', href: '/search', current: false },
+    // { name: 'Projects', href: '/Dashbord', current: false },
+    { name: 'Contact', href: '/contact', current: false },
+    { name: 'About', href: '/about', current: false },
+  ]
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
   return (
-    <div className='flex md:mx-auto md:justify-center shadow-sm '>
-      <div className=''>
-      <div className='flex   gap-8 mt-[17px] w-[1550px]  mx-[34px] h-[45px]   mx-auto    '>
-      <div>
-      <Link to="/">
-        <button className='font-bold w-[148px]   text-lg'><span className='text-red-500 '>/</span> የኔ Frame</button>
-        </Link>
-      </div>
-      <div className='flex grow  hidden md:block'>
-      <ul className=" flex gap-8 items-center  ">
-      <Link to='search'>   <button>Search</button> </Link> 
-            <li>God Tools</li>
-            <li>Contact</li>
-            <li>About</li>
-        </ul>
-      </div>
-        <div className='flex gap-4   hidden md:block md:flex md:items-center mr-32' >
-            <button className='bg-blue-500 text-white px-2 rounded-md'>Loge in</button>
-           
-        </div>
-        </div> 
-         
-        <div>
-   </div>
-           {/*smoll screen  */}
-           <div onClick={eventHandler} className='block md:hidden mt-2 mr-5 items-center'>
-    {!nav?<AiOutlineMenu size={20} />:<AiOutlineClose size={20} />}
-</div> 
-<div className={nav?'absolute top-0 left-0 mt-6 z-50  h-screen w-[60%] bg-black text-white  ease-in-out duration-500':'fixed left-[-100%] ease-in-out duration-500'}>
-<h1 className='font-bold w-[148px] mt-5 ml-5'><span className='text-red-500 '>/</span>የኔ Frame</h1>
-<ul className=" flex-1 gap-8 items-center p-5 mt-6  ">
-<Link to='search' className='hover:bg-blue-500 px-2 rounded-md mt-2'>   <button>Search</button> </Link>   
-            <li className='hover:bg-blue-500 px-2 rounded-md mt-2 '>God Tool</li>
-            <li className='hover:bg-blue-500 px-2 rounded-md mt-2 '>Contact</li>
-            <li className='hover:bg-blue-500 px-2 rounded-md mt-2 '>About us!</li>
-        </ul>
-</div>
-</div>
+    <div className=' w-full first-letter:'>
+    <Disclosure as="nav" className="bg-white shadow-md ">
+      {({ open }) => (
+        <>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-shrink-0 items-center">
+                  <img
+                    className="block h-8 w-auto lg:hidden"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    alt="የኔ Frame"
+                  />
+                  <img
+                    className="hidden h-8 w-auto lg:block"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    alt="የኔ Frame"
+                  />
+                </div>
+                <div className="hidden sm:ml-6 sm:block">
+                  <div className="flex space-x-4">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          item.current ? ' hover:bg-gray-700 text-blue-800 hover:text-white' : 'text-blue-800 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                       <button>{item.name}</button> 
+                        
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button
+                  type="button"
+                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                {/* Profile dropdown */}
+               
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className="sm:hidden">
+            <div className="space-y-1 px-2 pt-2 pb-3">
+             
+  {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          item.current ? ' hover:bg-gray-700 text-blue-800 hover:text-white' : 'text-blue-800 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                       <button>{item.name}</button> 
+                        
+                      </Link>
+                    ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
     </div>
   )
 }

@@ -13,7 +13,7 @@ const   Database={
        
     ],
 howto:[
-    {name:'Open Fotor and click "Add a Photo Frame Now".'},
+    {name:'Open የኔ Frame and click "Add a Photo Frame Now".'},
     {name:'Search Frame from Search Engines.'},
     {name:'Upload a photo you want to modify.'},
     {name:'Click " adjest to move your image or use other tools to make photo fit into frame size.'},
@@ -25,6 +25,80 @@ howto:[
         image2:frameImage,
         secondDis:"Photo frame is a unique photo effect, and you can use the frame to add subtle or contrast to your photo and enhance its layout. You can adjust the outer size, inner size, rounder corner of an image in the የኔ frame and add a special perspective to the photo. A የኔ photo frame would be great for your event photos in the best way. See what kinds of great things you can create with the square picture frames",
         firstDis:'Each day, around the world millions of Profile Frames are used to celebrate important moments, to cheer teams on to victory, and to show support for special causes.'
-    
+    // photo edit option
+    ,
+
 }
+export const DEFAULT_OPTIONS = [
+    {
+      name: "Brightness",
+      property: "brightness",
+      value: 100,
+      range: {
+        min: 0,
+        max: 200,
+      },
+      unit: "%",
+    },
+    {
+      name: "Contrast",
+      property: "contrast",
+      value: 100,
+      range: {
+        min: 0,
+        max: 200,
+      },
+      unit: "%",
+    },
+    {
+      name: "Saturation",
+      property: "saturate",
+      value: 100,
+      range: {
+        min: 0,
+        max: 200,
+      },
+      unit: "%",
+    },
+    {
+      name: "Grayscale",
+      property: "grayscale",
+      value: 0,
+      range: {
+        min: 0,
+        max: 100,
+      },
+      unit: "%",
+    },
+    {
+      name: "Sepia",
+      property: "sepia",
+      value: 0,
+      range: {
+        min: 0,
+        max: 100,
+      },
+      unit: "%",
+    },
+    {
+      name: "Hue Rotate",
+      property: "hue-rotate",
+      value: 0,
+      range: {
+        min: 0,
+        max: 360,
+      },
+      unit: "deg",
+    },
+    {
+      name: "Blur",
+      property: "blur",
+      value: 0,
+      range: {
+        min: 0,
+        max: 20,
+      },
+      unit: "px",
+    },
+  ];
 export default Database;

@@ -5,82 +5,11 @@ import html2canvas from "html2canvas";
 import { BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { BsArrowCounterclockwise, BsArrowClockwise } from "react-icons/bs";
 import Function from "./Function";
-import Database from "./Database";
+import Database,{DEFAULT_OPTIONS} from "./Database";
 import { Link, useLocation } from "react-router-dom";
-import SidebarItem from "./SidebarItem";
+import PhotoEditer from "./PhotoEditer";
 import Slider from "./Slider";
-const DEFAULT_OPTIONS = [
-  {
-    name: "Brightness",
-    property: "brightness",
-    value: 100,
-    range: {
-      min: 0,
-      max: 200,
-    },
-    unit: "%",
-  },
-  {
-    name: "Contrast",
-    property: "contrast",
-    value: 100,
-    range: {
-      min: 0,
-      max: 200,
-    },
-    unit: "%",
-  },
-  {
-    name: "Saturation",
-    property: "saturate",
-    value: 100,
-    range: {
-      min: 0,
-      max: 200,
-    },
-    unit: "%",
-  },
-  {
-    name: "Grayscale",
-    property: "grayscale",
-    value: 0,
-    range: {
-      min: 0,
-      max: 100,
-    },
-    unit: "%",
-  },
-  {
-    name: "Sepia",
-    property: "sepia",
-    value: 0,
-    range: {
-      min: 0,
-      max: 100,
-    },
-    unit: "%",
-  },
-  {
-    name: "Hue Rotate",
-    property: "hue-rotate",
-    value: 0,
-    range: {
-      min: 0,
-      max: 360,
-    },
-    unit: "deg",
-  },
-  {
-    name: "Blur",
-    property: "blur",
-    value: 0,
-    range: {
-      min: 0,
-      max: 20,
-    },
-    unit: "px",
-  },
-];
+
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
@@ -244,10 +173,10 @@ const Frame = () => {
           </div>
           <div className="col-12 col-lg-6 col-md-6 ">
             <div>
-              <div className=" gap-4 m-4">
+              <div className=" gap-4 mt-5 md:m-4">
                 {options.map((option, index) => {
                   return (
-                    <SidebarItem
+                    <PhotoEditer
                       key={index}
                       name={option.name}
                       active={index === selectedOptionIndex}
@@ -263,7 +192,7 @@ const Frame = () => {
                 value={selectedOption.value}
                 handleChange={handleSliderChange}
               />
-              <div className="d-flex  align-items-end justify-center bg-blue-600  p-3 rounded-md text-white items-center  gap-4 ">
+              <div className="d-flex  align-items-end justify-center   p-3  bg-gray-500 text-white items-center  gap-4 ">
                 <button onClick={Dic}>
                   <BsZoomOut size={20} />
                 </button>
@@ -319,7 +248,7 @@ const Frame = () => {
             </div>
           </div>
         </div>
-        <section class="overflow-auto h-screen text-gray-700 ">
+        <section class="overflow-auto  text-gray-700 ">
           <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
             <div class="flex flex-wrap -m-1 md:-m-2">
               {Database.image.map((data, index) => (
