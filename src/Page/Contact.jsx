@@ -4,11 +4,11 @@ import InputText from './InputText'
 import AreaText from'./AreaText'
 import Button from './Button'
 import  GoogleMap from './GoogleMap'
-import { BsFillTelephoneFill,BsFillEnvelopeFill,BsGeoAltFill } from "react-icons/bs";
+import { BsFillTelephoneFill,BsFillEnvelopeFill,BsGlobe2 } from "react-icons/bs";
 export default function Contact(){
 const ContactInfos={
     h1:'Contact Informations',
-    p:'this is GCM ethiopia Contact Center 24/7 feel free to contact Us!',
+    p:'Bole Sub-city, Near Megenagna Square,CMC Road, Woreda 06, House Number 006,Addis Ababa, Ethiopia',
     name:'CONTACT US',
     Styleh1:"text-center font-bold text-2xl ",
     Stylep:"text-center Container ",
@@ -17,10 +17,10 @@ const ContactInfos={
 }
 const ContactLists={
     list:[
-        {title:'Phone Number', value:'+251994508849',Icon:BsFillTelephoneFill},
-        {title:'Email Address', value:'@gmail.com',Icon:BsFillEnvelopeFill},
-        {title:'Fax Address',value:'0000',Icon:BsFillTelephoneFill},
-        {title:'Location',value:'megenagna/ Adis-Abeba/Ethiopia',Icon:BsGeoAltFill}
+        {title:'Phone Number', value:'+251116456047',Icon:BsFillTelephoneFill},
+        {title:'Email Address', value:'info@gcmethiopia.org',Icon:BsFillEnvelopeFill},
+        {title:'P.O.Box',value:'41303 – Addis Ababa',Icon:BsFillTelephoneFill},
+        {title:'Website',value:'www.gcmethiopia.org',Icon:BsGlobe2}
     ],
     form:[
         {name:'Name',value:'',type:'text',placeholde:'Your Name'},

@@ -9,7 +9,7 @@ import Database,{DEFAULT_OPTIONS} from "./Database";
 import { Link, useLocation } from "react-router-dom";
 import PhotoEditer from "./PhotoEditer";
 import Slider from "./Slider";
-
+import { BsShareFill } from "react-icons/bs";
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
@@ -228,6 +228,7 @@ const Frame = () => {
               )}
               {/* choose file and create Frame Menu */}
               <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
+                <lable> Upload Your Image
                 <input
                   type="file"
                   placeholder="image"
@@ -236,13 +237,14 @@ const Frame = () => {
                   accept="image/*"
                   onChange={(e) => handleImageChange(e)}
                 />
-
+</lable>
                 <button
                   className="bg-blue-400 py-1 btn btn-primary rounded-md text-white text-sm font-bold px-3"
                   onClick={download}
                 >
                   Download
                 </button>
+                <BsShareFill size={20}/>
               </div>
               {/*  */}
             </div>
