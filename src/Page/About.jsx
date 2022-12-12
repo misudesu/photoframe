@@ -6,7 +6,7 @@ const About=()=>{
         {title:'OUR VALUES :',dis:'Faith, Growth and Fruitfulness',icon:Icon},
     ]
     return(
-        <div className=' mb-20 bg-gradient-to-r from-cyan-500 to-blue-500'>
+        <div className=' mb-20 bg-gradient-to-r bg-[#F8FAFC]'>
           <div className='text-center '>
             <p className='text-blue-400'>.</p>
             <h1 className='mt-20'>About Us</h1>
