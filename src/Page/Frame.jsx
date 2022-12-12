@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import interact from "interactjs";
 import html2canvas from "html2canvas";
-
+import { FacebookButton, FacebookCount } from "react-social";
 import { BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { BsArrowCounterclockwise, BsArrowClockwise } from "react-icons/bs";
 import Function from "./Function";
@@ -115,6 +115,8 @@ const Frame = () => {
 
     return filters.join(" ");
   }
+  const url = "https://github.com";
+ 
   return (
     <div>
       <div className="container-fluid">
@@ -245,6 +247,10 @@ const Frame = () => {
                   Download
                 </button>
                 <BsShareFill size={20}/>
+                <FacebookButton url={url} appId='829828258275482'>
+        <FacebookCount url={url} />
+        {" Share " + url}
+      </FacebookButton>
               </div>
               {/*  */}
             </div>
