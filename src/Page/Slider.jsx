@@ -12,6 +12,7 @@ export default function Slider({ min, max, value, handleChange }) {
         onChange={handleChange}
         list='rating'
       />
+      
         <datalist id="rating">
 <option value="1" label="1"></option>
 <option value="2"></option>
