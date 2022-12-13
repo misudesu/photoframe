@@ -8,22 +8,24 @@ export default function Upload(){
     const [users] = useAuthState(auth);
     const [progress,setProgress]=useState(null);
     const [formData,setformData] =useState({
-        Name:'',
+        Name:null,
         key:users.email,
-        FrameImage:'',
-        Image:''
+        FrameImage:null,
+   
       })
-  
+  const [imageview,setImageView]=useState('');
       const handleChange = (e) => {
-      
+        setProgress('')
         setformData({ ...formData, [e.target.name]: e.target.value });
       };
       const handleImageChange = (e) => {
         setformData({ ...formData, [e.target.name]: e.target.files[0] });
-        //setformData({ ...formData, Image: URL.createObjectURL( e.target.files[0]) });
-   
+        setProgress('')
+      
       };
       const handlePublish = () => {
+ if(formData.Name!=null && formData.FrameImage!=null){
+
  
         const storageRef = ref(
           storage,
@@ -37,7 +39,7 @@ export default function Upload(){
            const progressPercent = Math.round(
              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
            );
-           setProgress(progressPercent);
+           setProgress('Please wait request processing');
          },
          (err) => {
            console.log(err);
@@ -53,11 +55,12 @@ export default function Upload(){
               createdAt: Timestamp.now().toDate(),
                 })
                   .then(() => {
-                    alert("Article added successfully", { type: "success" });
-                    setProgress(0);
+                   
+                    setProgress('Frame added successfully');
                   })
                   .catch((err) => {
-                    alert("Error adding article", { type: "error" });
+                    // alert("Error adding article", { type: "error" });
+                    setProgress('Error adding Frame');
                   });
                   //
               
@@ -66,11 +69,17 @@ export default function Upload(){
             //
             }
             );
+          }else{
+            setProgress('INPUT filed is Empty')
+          }
+
         }
-const [database,setDatabase ]=useState('');
+const [database,setDatabase ]=useState(null);
         useEffect(() => {
             const productRef = collection(db, "Frame");
-            const q = query(productRef,  where("Key", "==",users.email));  onSnapshot(q, (snapshot) => {
+            if(users.email==null){
+            }else{
+              const q = query(productRef,  where("Key", "==",users?.email));  onSnapshot(q, (snapshot) => {
                 const frame = snapshot.docs.map((doc) => ({
                   id: doc.id,
                   ...doc.data(),
@@ -78,6 +87,8 @@ const [database,setDatabase ]=useState('');
               setDatabase(frame);
           
             });
+            }
+           
           
           }, []);
           console.log(database)
@@ -89,6 +100,7 @@ return(
 <div className="flex justify-center mt-8">
     <div className="rounded-lg shadow-xl bg-gray-50 lg:w-1/2">
         <div className="m-4">
+          <form>
             <label className="inline-block mb-2 text-gray-500">Upload
                 Image(jpg,png,svg,jpeg)</label>
             <div className="flex items-center justify-center w-full">
@@ -104,17 +116,20 @@ return(
                         <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                             Select a photo</p>
                     </div>
-                    
+                    <input  type='file' name="FrameImage" className="opacity-0"  required  accept="image/*"
+                           onChange={(e) => handleImageChange(e)} />
+               
                 </label>
             </div>
-            <input  type='file' name="FrameImage" className="opacity-0"    accept="image/*"
-                           onChange={(e) => handleImageChange(e)} />
-            {formData.Image? <img src={formData.Image} className='w-28 h-28 rounded-md p-1 '/>:''}
-            <input className='form-control mt-3' type='text' name='Name' placeholder='Frame Name' requre onChange={(e) => handleChange(e)} />
+           
+            {formData.FrameImage? <img src={URL.createObjectURL(formData.FrameImage)} className='w-28 h-28 rounded-md p-1 '/>:''}
+            <input className='form-control mt-3' type='text' name='Name' placeholder='Frame Name' required onChange={(e) => handleChange(e)} />
+            </form>
+            {progress?<div className=' text-red-500'>{progress } </div>:''}
         </div>
       
         <div className="flex p-2 space-x-4">
-           {progress?<div className='rounded-full w-32 h-32 bg-gray-500 text-red-500'>{progress } % </div>:''}
+         
             <button className="px-4 py-2 text-white bg-green-500 rounded shadow-xl" onClick={ handlePublish}>Submit</button>
         </div>
     </div>
@@ -125,7 +140,8 @@ return(
         <section className="overflow-auto  text-gray-700 ">
         <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
           <div className="flex flex-wrap -m-1 md:-m-2">
-          {/* {database.map((data,index)=>(
+
+          {database?.map((data,index)=>(
 
     <div
       className={`flex flex-wrap w-1/3   ${
@@ -141,14 +157,14 @@ return(
         <img
           alt="gallery"
           className="block object-cover object-center w-full h-full  bg-black rounded-lg"
-          src={data.Image}
+          src={data.FrameImage}
         />
       </div>
     </div>
 
           )
          
-          )} */}
+          )}
           </div>
         </div>
       </section>
