@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Footer from './Page/Footer';
 import About from './Page/About'
+import Upload from './Page/Upload'
 function App() {
   return (
     <div >
@@ -20,6 +21,7 @@ function App() {
        <Route path='/frame' element={<Frame/>}/>
        <Route path='/contact' element={<Contact/>}/>
        <Route path='/about' element={<About/>}/>
+       <Route path='/uplood' element={<Upload/>}/>
       </Route>
     </Routes>
     <Footer/>

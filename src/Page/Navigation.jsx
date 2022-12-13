@@ -2,14 +2,18 @@ import React,{useState} from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {BsPerson} from "react-icons/bs"
 import {Link}  from "react-router-dom"
+import LOGIN from './LOGIN'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { storage, db, auth } from "../Server/Configer";
 const Navigation = () => {
   const [nav,setNav]=useState(false);
   const eventHandler=()=>{
     setNav(!nav)
   }
-
+  const [user] = useAuthState(auth);
   const navigation = [
     { name: 'የኔ Frame', href: '/', current: true },
     { name: 'Search', href: '/search', current: false },
@@ -58,8 +62,8 @@ const Navigation = () => {
                         key={item.name}
                         to={item.href}
                         className={classNames(
-                          item.current ? ' hover:bg-gray-700 text-blue-800 hover:text-white' : 'text-blue-800 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          item.current ? ' hover:bg-gray-700 text-blue-800 hover:text-white' :'text-blue-800 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium' 
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
@@ -70,18 +74,21 @@ const Navigation = () => {
                   </div>
                 </div>
               </div>
+              {user?<Link to='uplood' className=" px-4 text-blue-800 mr-8 hover:bg-gray-700 hover:text-white ',
+                          'px-3 py-2 rounded-md text-sm font-medium"><button>Add Frame </button></Link>:''}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                <LOGIN/>
                 </button>
 
                 {/* Profile dropdown */}
                
               </div>
+             
             </div>
           </div>
 
