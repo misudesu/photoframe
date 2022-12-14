@@ -3,6 +3,8 @@ import {BiSearch } from "react-icons/bi";
 import Database from './Database'
 import {Link}  from "react-router-dom"
 import FilterResults from 'react-filter-search'
+import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
+import { storage, db, auth } from "../Server/Configer";
 const Search=()=>{
     const [search,setSearch]=useState(
         {
@@ -11,8 +13,16 @@ const Search=()=>{
           }
     )
     useEffect(()=>{
-        setSearch({...search , data:Database.image});
-   },[]);  
+      const productRef = collection(db, "Frame");
+        const q = query(productRef,   orderBy("createdAt", "desc"));  onSnapshot(q, (snapshot) => {
+          const frame = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+      
+        setSearch({...search , data:frame});
+      });
+      },[]);  
    const handleChange =(e) => {
         const { value } = e.target;
     setSearch({...search, value:value });
@@ -39,9 +49,9 @@ const Search=()=>{
             <div className='flex md:gap-4 '>
               {results.map(el => (
                 <div className=''>
-        <Link to={`/frame`} state={{SelectedGraphics:el.img}}>
+        <Link to={`/frame`} state={{SelectedGraphics:el.FrameImage}}>
            <div key={results.length} className='rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
-   <img src={el.img} className='w-32  ' alt={el.name} />
+   <img src={el.FrameImage} className='w-32  ' alt={el.Name} />
    </div>
    </Link>
 </div>

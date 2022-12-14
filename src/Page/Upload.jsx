@@ -1,6 +1,7 @@
+import {BsTrashFill} from "react-icons/bs"
 import React,{useState,useEffect} from 'react'
-import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where  } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL,deleteObject } from "firebase/storage";
 import { storage, db, auth } from "../Server/Configer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import RetravFrame from './RetravFrame'
@@ -9,9 +10,8 @@ export default function Upload(){
     const [progress,setProgress]=useState(null);
     const [formData,setformData] =useState({
         Name:null,
-        key:users.email,
+        key:users?.email,
         FrameImage:null,
-   
       })
   const [imageview,setImageView]=useState('');
       const handleChange = (e) => {
@@ -25,8 +25,6 @@ export default function Upload(){
       };
       const handlePublish = () => {
  if(formData.Name!=null && formData.FrameImage!=null){
-
- 
         const storageRef = ref(
           storage,
           `/Frame/${Date.now()}${formData.FrameImage.name}`
@@ -77,7 +75,7 @@ export default function Upload(){
 const [database,setDatabase ]=useState(null);
         useEffect(() => {
             const productRef = collection(db, "Frame");
-            if(users.email==null){
+            if(users?.email==null){
             }else{
               const q = query(productRef,  where("Key", "==",users?.email));  onSnapshot(q, (snapshot) => {
                 const frame = snapshot.docs.map((doc) => ({
@@ -91,7 +89,17 @@ const [database,setDatabase ]=useState(null);
            
           
           }, []);
-          console.log(database)
+    const Delete=(id,FrameImage)=>{
+      try {
+        deleteDoc(doc(db, "Frame", id));
+       
+        const storageRef = ref(storage,FrameImage);
+        deleteObject(storageRef);
+      } catch (error) {
+        alert("Error deleting article", { type: "error" });
+       
+      }
+    }
 return(
     <div>
       <div>
@@ -137,7 +145,7 @@ return(
 </div>
         </div>
        
-        <section className="overflow-auto  text-gray-700 ">
+        <section className="overflow-auto  text-gray-700 mt-5">
         <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
           <div className="flex flex-wrap -m-1 md:-m-2">
 
@@ -153,20 +161,27 @@ return(
         className="w-full  p-1 md:p-2"
       //   onClick={() => changGraphics(data.img)}
       >
-      
+    
         <img
           alt="gallery"
           className="block object-cover object-center w-full h-full  bg-black rounded-lg"
           src={data.FrameImage}
         />
+      
       </div>
+      <lable className='flex hover:text-red-500' onClick={()=>Delete(data.id,data.FrameImage)}>
+      <BsTrashFill size={20}/> Delete
+      </lable>
     </div>
 
           )
          
           )}
+            
           </div>
+        
         </div>
+      
       </section>
         </div>  
     </div>

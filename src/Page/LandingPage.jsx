@@ -7,7 +7,7 @@ import { BsFillRecordFill } from "react-icons/bs";
 const LandingPage=()=>{
   const opts = {
     height: '290',
-    width: '400',
+    width: '350',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,

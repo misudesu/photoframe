@@ -9,6 +9,8 @@ import Database,{DEFAULT_OPTIONS} from "./Database";
 import { Link, useLocation } from "react-router-dom";
 import PhotoEditer from "./PhotoEditer";
 import Slider from "./Slider";
+import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
+import { storage, db, auth } from "../Server/Configer";
 import { BsShareFill } from "react-icons/bs";
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
@@ -20,6 +22,7 @@ const Frame = () => {
     rotate: "0",
     zindex: "-z-50",
   });
+  const [fburl,setFburl]=useState();
   const [graphics, setGraphics] = useState(SelectedGraphics);
   const [value, setValue] = useState(false);
   const [notification, setNotify] = useState(null);
@@ -53,6 +56,8 @@ const Frame = () => {
     html2canvas(screenshotTarget).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
       var anchor = document.createElement("a");
+      //const u=canvas.toBlob();
+     // setFburl(u);
       anchor.setAttribute("href", base64image);
       anchor.setAttribute("download", "my-image.png");
       anchor.click();
@@ -115,7 +120,23 @@ const Frame = () => {
 
     return filters.join(" ");
   }
-  const url = "https://github.com";
+  const [search,setSearch]=useState(
+    {
+        data: [],
+        value: ''
+      }
+)
+  useEffect(()=>{
+    const productRef = collection(db, "Frame");
+      const q = query(productRef,   orderBy("createdAt", "desc"));  onSnapshot(q, (snapshot) => {
+        const frame = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+    
+      setSearch({...search , data:frame});
+    });
+    },[]);  
  
   return (
     <div>
@@ -132,12 +153,11 @@ const Frame = () => {
                   zIndex: "1",
                 }}
               >
-                <div
+                <img
                   className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
-                    backgroundImage: `url(${graphics})`,
-                 
+                  
                     overflow: "hidden",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center center",
@@ -145,7 +165,9 @@ const Frame = () => {
                     left: "0px",
                     overflow: "hidden",
                   }}
-                ></div>
+                  src={graphics}
+                /> 
+
                 <div 
                   id="draggable"
                   className={`draggable bg-auto `}
@@ -154,7 +176,7 @@ const Frame = () => {
                     backgroundImage: `url(${image.image})`,
                     touchAction: "none",
                     userselect: "none",
-                     backgroundSize: `  ${image.size}px,${image.size}px`,
+                    backgroundSize: `  ${image.size}px,${image.size}px`,
                     width: `${image.size}px`,
                     height: `${image.size}px`,
                     backgroundRepeat: "no-repeat",
@@ -165,17 +187,38 @@ const Frame = () => {
                     left: "0px",
                     zIndex: `${zindex}`,
                     opacity: `${opacity}`,
-
                     cursor: "move",
                     filter: `${getImageStyle()}`,
                   }}
-                ></div>
+                >
+                                  </div>
               </div>
             </div>
           </div>
           <div className="col-12 col-lg-6 col-md-6 ">
             <div>
-              <div className=" gap-4 mt-5 md:m-4">
+            <label name='FrameImage' className="flex flex-col w-full h-20 mt-5 md:h-32 border-4 border-dashed  hover:bg-gray-100 hover:border-gray-300">
+                    <div className="flex flex-col items-center justify-center md:pt-7">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            className="w-12 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                            Select a photo</p>
+                            <input
+              type="file"
+              placeholder="image"
+              className="opacity-0 "
+              name="image"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e)}
+            />
+            </div>
+             </label>
+              <div className=" gap-4 mt-3 md:m-4">
                 {options.map((option, index) => {
                   return (
                     <PhotoEditer
@@ -194,7 +237,7 @@ const Frame = () => {
                 value={selectedOption.value}
                 handleChange={handleSliderChange}
               />
-              <div className="d-flex  align-items-end justify-center   p-3  bg-gray-500 text-white items-center  gap-4 ">
+              <div className="d-flex  align-items-end justify-center mt-3  p-3  bg-gray-500 text-white items-center  gap-4 ">
                 <button onClick={Dic}>
                   <BsZoomOut size={20} />
                 </button>
@@ -230,16 +273,7 @@ const Frame = () => {
               )}
               {/* choose file and create Frame Menu */}
               <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
-                <lable> Upload Your Image
-                <input
-                  type="file"
-                  placeholder="image"
-                  className="bg-blue-400 py-1 px-1 rounded-md form-control "
-                  name="image"
-                  accept="image/*"
-                  onChange={(e) => handleImageChange(e)}
-                />
-</lable>
+            
                 <button
                   className="bg-blue-400 py-1 btn btn-primary rounded-md text-white text-sm font-bold px-3"
                   onClick={download}
@@ -247,9 +281,9 @@ const Frame = () => {
                   Download
                 </button>
                 <BsShareFill size={20}/>
-                <FacebookButton url={url} appId='829828258275482'>
-        <FacebookCount url={url} />
-        {" Share " + url}
+                <FacebookButton url={fburl} appId='829828258275482'>
+        <FacebookCount url={fburl} />
+        {" Share " + fburl}
       </FacebookButton>
               </div>
               {/*  */}
@@ -259,21 +293,21 @@ const Frame = () => {
         <section class="overflow-auto  text-gray-700 ">
           <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
             <div class="flex flex-wrap -m-1 md:-m-2">
-              {Database.image.map((data, index) => (
+              {search.data.map((data, index) => (
                 <div
                   class={`flex flex-wrap w-1/3   ${
-                    Database.image.length > 4 ? "lg:w-2/12" : ""
+                    search.data.length > 4 ? "lg:w-2/12" : ""
                   }   `}
                   key={index}
                 >
                   <div
                     class="w-full  p-1 md:p-2"
-                    onClick={() => changGraphics(data.img)}
+                    onClick={() => changGraphics(data.FrameImage)}
                   >
                     <img
                       alt="gallery"
                       class="block object-cover object-center w-full h-full  bg-black rounded-lg"
-                      src={data.img}
+                      src={data.FrameImage}
                     />
                   </div>
                 </div>
@@ -285,5 +319,4 @@ const Frame = () => {
     </div>
   );
 };
-
 export default Frame;
