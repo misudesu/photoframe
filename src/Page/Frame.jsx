@@ -14,6 +14,9 @@ import { storage, db, auth } from "../Server/Configer";
 import { getStorage, ref, uploadBytes,uploadString ,getDownloadURL} from "firebase/storage";
 import { BsShareFill } from "react-icons/bs";
 import domtoimage from "dom-to-image-more";
+import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
+
+
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
@@ -85,7 +88,7 @@ const storageRef = ref(storage,
     //   link.href=dataUrl;
     //   link.click();
     // })
-    
+  
     // uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
     //   console.log('Uploaded a base64 string!');
     //   getDownloadURL(snapshot.ref).then((url) => {
@@ -191,6 +194,7 @@ const storageRef = ref(storage,
                 }}
               >
                 <div
+                 
                   className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
@@ -205,7 +209,7 @@ const storageRef = ref(storage,
                   }}
                 
                 > 
-
+  </div> 
                 <div 
                   id="draggable"
                   className={`draggable bg-auto `}
@@ -229,7 +233,7 @@ const storageRef = ref(storage,
                     filter: `${getImageStyle()}`,
                   }}
                 >
-                                  </div>
+                               
                                   </div>
               </div>
             </div>
