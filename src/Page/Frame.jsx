@@ -11,6 +11,7 @@ import PhotoEditer from "./PhotoEditer";
 import Slider from "./Slider";
 import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
 import { storage, db, auth } from "../Server/Configer";
+import { getStorage, ref, uploadBytes,uploadString ,getDownloadURL} from "firebase/storage";
 import { BsShareFill } from "react-icons/bs";
 import domtoimage from "dom-to-image-more";
 const Frame = () => {
@@ -53,38 +54,52 @@ const Frame = () => {
     }
   };
   const eventHandler = () => {
-    domtoimage
-    .toPng(document.querySelector("#image"), { quality: 0.95 })
-    .then(function (dataUrl) {
-      var link = document.createElement("a");
-      link.download = "my-image-name.jpeg";
-      link.href = dataUrl;
-      setFburl(dataUrl);
-      link.click();
-    });
+    const storage = getStorage();
+const storageRef = ref(storage,
+  `/Temp/${Date.now()}${image.image}`);
+
+    // domtoimage
+    // .toPng(document.getElementById("image"), { quality: 0.95 })
+    // .then(function (dataUrl) {
+    //   const message2 = '5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
+    //   uploadString(storageRef, dataUrl, 'data_url').then((snapshot) => {
+    //     console.log('Uploaded a base64 string!');
+    //     getDownloadURL(snapshot.ref).then((url) => {
+    //       setFburl(url);
+    //     });
+    //   });
+    //   var link = document.createElement("a");
+    //   link.download = "my-image-name.png";
+    //   link.href = dataUrl;
+     
+    //   link.click();
+    // });
    
-    //const screenshotTarget = document.getElementById("image");
-    // html2canvas(screenshotTarget).then((canvas) => {
-    //   const base64image = canvas.toDataURL("image/png");
-    // domtoimage.toJpeg(document.getElementById("image"),{quality:0.95})
+    const screenshotTarget = document.getElementById("image");
+    html2canvas(screenshotTarget).then((canvas) => {
+      const base64image = canvas.toDataURL("image/png");
+    // domtoimage.toPng(document.getElementById("image"),{quality:0.95})
     // .then(function (dataUrl){
     //   var link=document.createElement('a');
-    //   link.download='my-image-name.jpeg';
+    //   link.download='my-image-name.png';
     //   link.href=dataUrl;
     //   link.click();
     // })
-    // domtoimage.toBlob(document.getElementById('image'))
-    // .then(function (blob){
-    //   window.saveAs(blob,'my-node.png');
-    // })
-      //var anchor = document.createElement("a");
-      //const u=canvas.toBlob();
-     // setFburl(u);
-      // anchor.setAttribute("href", base64image);
-      // anchor.setAttribute("download", "my-image.png");
-      // anchor.click();
-      // anchor.remove();
-   // });
+    
+    // uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
+    //   console.log('Uploaded a base64 string!');
+    //   getDownloadURL(snapshot.ref).then((url) => {
+    //     setFburl(url);
+    //   });
+    // });
+
+      var anchor = document.createElement("a");
+     
+      anchor.setAttribute("href", base64image);
+      anchor.setAttribute("download", "my-image.png");
+      anchor.click();
+      anchor.remove();
+   });
   };
   const handleImageChange = (e) => {
     setImage({
@@ -189,7 +204,7 @@ const Frame = () => {
                     overflow: "hidden",
                   }}
                 
-                > </div>
+                > 
 
                 <div 
                   id="draggable"
@@ -214,6 +229,7 @@ const Frame = () => {
                     filter: `${getImageStyle()}`,
                   }}
                 >
+                                  </div>
                                   </div>
               </div>
             </div>

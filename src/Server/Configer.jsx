@@ -4,7 +4,8 @@ import { getAnalytics } from "firebase/analytics";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getAuth } from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
-import {getStorage} from 'firebase/storage';
+
+import { getStorage,  } from "firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyDqUPw2ebtf3KKAVboEAuVc-HuZFbfLp7I",
   authDomain: "enzemr-9b526.firebaseapp.com",
@@ -20,7 +21,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+
 export const db = getFirestore(app);
