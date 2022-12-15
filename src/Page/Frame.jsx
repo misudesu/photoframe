@@ -12,6 +12,7 @@ import Slider from "./Slider";
 import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
 import { storage, db, auth } from "../Server/Configer";
 import { BsShareFill } from "react-icons/bs";
+import domtoimage from "dom-to-image-more";
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
@@ -52,17 +53,38 @@ const Frame = () => {
     }
   };
   const eventHandler = () => {
-    const screenshotTarget = document.getElementById("image");
-    html2canvas(screenshotTarget).then((canvas) => {
-      const base64image = canvas.toDataURL("image/png");
-      var anchor = document.createElement("a");
+    domtoimage
+    .toPng(document.querySelector("#image"), { quality: 0.95 })
+    .then(function (dataUrl) {
+      var link = document.createElement("a");
+      link.download = "my-image-name.jpeg";
+      link.href = dataUrl;
+      setFburl(dataUrl);
+      link.click();
+    });
+   
+    //const screenshotTarget = document.getElementById("image");
+    // html2canvas(screenshotTarget).then((canvas) => {
+    //   const base64image = canvas.toDataURL("image/png");
+    // domtoimage.toJpeg(document.getElementById("image"),{quality:0.95})
+    // .then(function (dataUrl){
+    //   var link=document.createElement('a');
+    //   link.download='my-image-name.jpeg';
+    //   link.href=dataUrl;
+    //   link.click();
+    // })
+    // domtoimage.toBlob(document.getElementById('image'))
+    // .then(function (blob){
+    //   window.saveAs(blob,'my-node.png');
+    // })
+      //var anchor = document.createElement("a");
       //const u=canvas.toBlob();
      // setFburl(u);
-      anchor.setAttribute("href", base64image);
-      anchor.setAttribute("download", "my-image.png");
-      anchor.click();
-      anchor.remove();
-    });
+      // anchor.setAttribute("href", base64image);
+      // anchor.setAttribute("download", "my-image.png");
+      // anchor.click();
+      // anchor.remove();
+   // });
   };
   const handleImageChange = (e) => {
     setImage({
@@ -153,11 +175,12 @@ const Frame = () => {
                   zIndex: "1",
                 }}
               >
-                <img
+                <div
                   className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
-                  
+                  backgroundImage: `url(${graphics})`,
+                 
                     overflow: "hidden",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center center",
@@ -165,8 +188,8 @@ const Frame = () => {
                     left: "0px",
                     overflow: "hidden",
                   }}
-                  src={graphics}
-                /> 
+                
+                > </div>
 
                 <div 
                   id="draggable"
@@ -293,21 +316,21 @@ const Frame = () => {
         <section class="overflow-auto  text-gray-700 ">
           <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
             <div class="flex flex-wrap -m-1 md:-m-2">
-              {search.data.map((data, index) => (
+              {Database.image.map((data, index) => (
                 <div
                   class={`flex flex-wrap w-1/3   ${
-                    search.data.length > 4 ? "lg:w-2/12" : ""
+                    Database.image.length > 4 ? "lg:w-2/12" : ""
                   }   `}
                   key={index}
                 >
                   <div
                     class="w-full  p-1 md:p-2"
-                    onClick={() => changGraphics(data.FrameImage)}
+                    onClick={() => changGraphics(data.img)}
                   >
                     <img
                       alt="gallery"
                       class="block object-cover object-center w-full h-full  bg-black rounded-lg"
-                      src={data.FrameImage}
+                      src={data.img}
                     />
                   </div>
                 </div>
