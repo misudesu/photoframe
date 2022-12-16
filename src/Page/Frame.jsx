@@ -88,7 +88,6 @@ const storageRef = ref(storage,
     //   link.href=dataUrl;
     //   link.click();
     // })
-  
     // uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
     //   console.log('Uploaded a base64 string!');
     //   getDownloadURL(snapshot.ref).then((url) => {
@@ -97,7 +96,7 @@ const storageRef = ref(storage,
     // });
 
       var anchor = document.createElement("a");
-     
+
       anchor.setAttribute("href", base64image);
       anchor.setAttribute("download", "my-image.png");
       anchor.click();
@@ -110,7 +109,7 @@ const storageRef = ref(storage,
       [e.target.name]: URL.createObjectURL(e.target.files[0]),
     });
   };
-
+  
   const ZINDEX = (e) => {
     if (value == false) {
       setValue(e.target.checked);
