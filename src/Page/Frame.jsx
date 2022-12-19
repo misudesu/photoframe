@@ -46,8 +46,11 @@ const Frame = () => {
     setImage({ ...image, rotate: image.rotate + 10 });
   };
   const changGraphics = (image) => {
-    setGraphics(image);
+    setGraphics(base64image);
+    
+  
   };
+
   const download = () => {
     if (value == true) {
       setNotify("Your are in Editing Mode Please uncheck Edit!");

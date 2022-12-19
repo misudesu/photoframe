@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import ContactInfo from './ContactInfo'
 import ContactList from './ContactList'
 import InputText from './InputText'

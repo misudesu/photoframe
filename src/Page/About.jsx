@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import Icon from '../asset/Icon.png'
 const About=()=>{
     const About=[

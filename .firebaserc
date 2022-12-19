@@ -1,15 +1,5 @@
 {
   "projects": {
     "default": "enzemr-9b526"
-  },
-  "targets": {
-    "enzemr-9b526": {
-      "hosting": {
-        "newframe": [
-          "newframe.web.app"
-        ]
-      }
-    }
-  },
-  "etags": {}
+  }
 }

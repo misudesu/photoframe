@@ -1,5 +1,6 @@
-import react,{useEffect,useState} from 'react';
-const SignUp=()=>{
+import React from 'react';
+import {useEffect,useState} from 'react';
+export default function SignUp(){
     return(
         <div>
             <div className='row justify-center items-center m-5'>
@@ -29,4 +30,3 @@ const SignUp=()=>{
             </div>
     )
 }
-export default SignUp;
