@@ -1,4 +1,5 @@
 import {BsTrashFill} from "react-icons/bs"
+import  { Component }  from 'react';
 import React,{useState,useEffect} from 'react'
 import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL,deleteObject } from "firebase/storage";
@@ -12,6 +13,7 @@ export default function Upload(){
         Name:null,
         key:users?.email,
         FrameImage:null,
+      
       })
   const [imageview,setImageView]=useState('');
       const handleChange = (e) => {
@@ -45,11 +47,10 @@ export default function Upload(){
          () => {
             getDownloadURL(uploadImage.snapshot.ref).then((url) => {
                 const articleRef = collection(db, "Frame");
-               addDoc(articleRef, {
-            
+               addDoc(articleRef, {      
              Name:formData.Name,
              Key:formData.key,
-             FrameImage:url,
+             FrameImage:url,          
               createdAt: Timestamp.now().toDate(),
                 })
                   .then(() => {
