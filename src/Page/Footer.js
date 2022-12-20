@@ -1,15 +1,16 @@
 import React, { Component }  from 'react';
+import {Link} from 'react-router-dom'
 const Footer = () => {
   return (
     <div className='container'>
         <div className=' row mt-5'>
 <div className='col-12 col-md-4 col-lg-4 '>
-<p className='text-3xl font-bold'>የኔ Frame</p>
+<p className='text-3xl font-bold text-center  '>የኔ Frame</p>
 <p className='md:w-60 text-sm text-center'>It gives you the posablity you need to creat a truly professional Frame </p>
 </div>
 <div className='col-12 col-md-4 col-lg-4 text-center'>
-<p>About</p>
-<p>Features</p>
+<Link to='about' ><button>About</button></Link> <br/>
+<Link to='contact'><button>Contact</button></Link>
 
 </div>
 <div className='col-12 col-md-4 col-lg-4 text-center'>

@@ -65,7 +65,7 @@ await addDoc(collection(db, "Frame"),{
      createdAt: Timestamp.now().toDate(),
        })
          .then(() => {
-          
+          setProgress('')
            setformData({...formData,progressS:'Frame added successfully'});
          })
          .catch((err) => {
