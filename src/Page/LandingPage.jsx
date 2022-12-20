@@ -3,6 +3,7 @@ import {BiSearch } from "react-icons/bi";
 import Database from './Database'
 import YouTube from 'react-youtube';
 import {Link} from 'react-router-dom'
+
 import { BsFillRecordFill } from "react-icons/bs";
 const LandingPage=()=>{
   const opts = {
@@ -16,6 +17,7 @@ const LandingPage=()=>{
 return(
     <div className='bg-[#F8FAFC] '>
       <div className='flex-grow w-full md:w-[1200px]  mx-[34px]    mx-auto   items-center'>
+      
         <div className='  flex  items-center justify-center '>
 <div className=' grid md:grid-cols-2 gap-16 items-center  md:p-5 mt-32'>
 <div>
