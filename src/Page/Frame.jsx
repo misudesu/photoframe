@@ -388,7 +388,7 @@ setNotificationTwo('Pelase Select a Photo!')
                 >
                   <div
                     class="w-full  p-1 md:p-2"
-                    onClick={() => changGraphics(data.FrameImage)}
+                    onClick={() => changGraphics(data.base64Frame)}
                   >
                     <img
                       alt="gallery"
