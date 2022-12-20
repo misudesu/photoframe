@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import imageToBase64 from 'image-to-base64/browser';
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { FacebookButton, FacebookCount } from "react-social";
@@ -15,8 +16,6 @@ import { getStorage, ref, uploadBytes,uploadString ,getDownloadURL} from "fireba
 import { BsShareFill } from "react-icons/bs";
 import domtoimage from "dom-to-image-more";
 import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
-
-
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
@@ -26,6 +25,7 @@ const Frame = () => {
     orentation: "",
     rotate: "0",
     zindex: "-z-50",
+    export:false,
   });
   const [fburl,setFburl]=useState();
   const [graphics, setGraphics] = useState(SelectedGraphics);
@@ -46,10 +46,20 @@ const Frame = () => {
     setImage({ ...image, rotate: image.rotate + 10 });
   };
   const changGraphics = (image) => {
-    setGraphics(base64image);
     
-  
-  };
+    imageToBase64(image) // Image URL
+    .then(
+        (response) => {
+            console.log(response); // "iVBORw0KGgoAAAANSwCAIA..."
+            setGraphics(response);
+        }
+    )
+    .catch(
+        (error) => {
+            console.log(error); // Logs an error if there was one
+        }
+    )
+   };
 
   const download = () => {
     if (value == true) {
@@ -91,13 +101,8 @@ const storageRef = ref(storage,
     //   link.href=dataUrl;
     //   link.click();
     // })
-    // uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
-    //   console.log('Uploaded a base64 string!');
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     setFburl(url);
-    //   });
-    // });
-
+  
+  
       var anchor = document.createElement("a");
 
       anchor.setAttribute("href", base64image);
@@ -107,6 +112,7 @@ const storageRef = ref(storage,
    });
   };
   const handleImageChange = (e) => {
+    setNotificationTwo('')
     setImage({
       ...image,
       [e.target.name]: URL.createObjectURL(e.target.files[0]),
@@ -179,7 +185,31 @@ const storageRef = ref(storage,
       setSearch({...search , data:frame});
     });
     },[]);  
+ const[notif,setNotificationTwo]=useState('')
+function exports(){
+  if(image.image=='one'){
+setNotificationTwo('Pelase Select a Photo!')
+  }else{
+    const screenshotTarget = document.getElementById("image");
+    html2canvas(screenshotTarget).then((canvas) => {
+      const base64image = canvas.toDataURL("image/png");
+   
+    const storage = getStorage();
+    const storageRef = ref(storage,
+      `/Temp/${Date.now()}${image.image}`);
+    
+    uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
+      console.log('Uploaded a base64 string!');
+      getDownloadURL(snapshot.ref).then((url) => {
+        setFburl(url);
+      });
+    });   
+   } );
+   setImage({...image,export:true})
+  }
  
+}
+
   return (
     <div>
       <div className="container-fluid">
@@ -200,8 +230,7 @@ const storageRef = ref(storage,
                   className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
-                  backgroundImage: `url(${graphics})`,
-                 
+                    backgroundImage: `url(${graphics})`,                 
                     overflow: "hidden",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center center",
@@ -240,9 +269,19 @@ const storageRef = ref(storage,
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-6 col-md-6 ">
+         
+          <div className="col-12 col-lg-6 col-md-6  text-right ">
+         
             <div>
+            <span className='mr-4'>{notif}</span>
+          <button
+                  className="bg-blue-400  py-1 text-right btn btn-primary rounded-md text-white text-sm font-bold px-3"
+                  onClick={exports}
+                >
+                  Export
+                </button>
             <label name='FrameImage' className="flex flex-col w-full h-20 mt-5 md:h-32 border-4 border-dashed  hover:bg-gray-100 hover:border-gray-300">
+                   
                     <div className="flex flex-col items-center justify-center md:pt-7">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             className="w-12 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20"
@@ -317,7 +356,7 @@ const storageRef = ref(storage,
                 <div></div>
               )}
               {/* choose file and create Frame Menu */}
-              <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
+           {image.export?  <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
             
                 <button
                   className="bg-blue-400 py-1 btn btn-primary rounded-md text-white text-sm font-bold px-3"
@@ -325,12 +364,13 @@ const storageRef = ref(storage,
                 >
                   Download
                 </button>
+               
+                <FacebookButton url={fburl} className='flex gap-4' appId='829828258275482'>
                 <BsShareFill size={20}/>
-                <FacebookButton url={fburl} appId='829828258275482'>
         <FacebookCount url={fburl} />
-        {" Share " + fburl}
+        {" Share now " }
       </FacebookButton>
-              </div>
+              </div>:'' }
               {/*  */}
             </div>
           </div>
@@ -338,21 +378,21 @@ const storageRef = ref(storage,
         <section class="overflow-auto  text-gray-700 ">
           <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
             <div class="flex flex-wrap -m-1 md:-m-2">
-              {Database.image.map((data, index) => (
+              {search.data.map((data, index) => (
                 <div
                   class={`flex flex-wrap w-1/3   ${
-                    Database.image.length > 4 ? "lg:w-2/12" : ""
+                    search.data.length > 4 ? "lg:w-2/12" : ""
                   }   `}
                   key={index}
                 >
                   <div
                     class="w-full  p-1 md:p-2"
-                    onClick={() => changGraphics(data.img)}
+                    onClick={() => changGraphics(data.FrameImage)}
                   >
                     <img
                       alt="gallery"
                       class="block object-cover object-center w-full h-full  bg-black rounded-lg"
-                      src={data.img}
+                      src={data.base64Frame}
                     />
                   </div>
                 </div>

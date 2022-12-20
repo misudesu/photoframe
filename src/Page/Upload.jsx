@@ -1,4 +1,4 @@
-import {BsTrashFill} from "react-icons/bs"
+import {BsTrashFill,BsThreeDots} from "react-icons/bs"
 import  { Component }  from 'react';
 import React,{useState,useEffect} from 'react'
 import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
@@ -6,102 +6,139 @@ import { ref, uploadBytesResumable, getDownloadURL,deleteObject } from "firebase
 import { storage, db, auth } from "../Server/Configer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import RetravFrame from './RetravFrame'
+import imageToBase64 from 'image-to-base64/browser';
 export default function Upload(){
     const [users] = useAuthState(auth);
     const [progress,setProgress]=useState(null);
     const [formData,setformData] =useState({
-        Name:null,
+        Name:'',
         key:users?.email,
         FrameImage:null,
-      
+        base64Frame:null,
+        Discription:null,
+        dot:false,
       })
+      const [database,setDatabase ]=useState(null);
   const [imageview,setImageView]=useState('');
       const handleChange = (e) => {
         setProgress('')
         setformData({ ...formData, [e.target.name]: e.target.value });
       };
       const handleImageChange = (e) => {
-        setformData({ ...formData, [e.target.name]: e.target.files[0] });
+        // setformData({ ...formData, [e.target.name]: e.target.files[0] });
+        var upl = document.getElementById("file_id");
+        var max = 500000;
+    
+        if(upl.files[0].size > max)
+        {
+          setProgress("File too big! must be less then 500 kb")
+         
+           upl.value = "";
+        }else{
+          setProgress('')
+         
+        var file = document.querySelector('input[type=file]')['files'][0];
+        var reader = new FileReader();
+        var baseString;
+        reader.onloadend = function () {
+            baseString = reader.result;
+        
+            setformData({...formData, base64Frame : baseString});
+        };
+      const frame=  reader.readAsDataURL(file);
+   
         setProgress('')
-      
+        }
       };
-      const handlePublish = () => {
- if(formData.Name!=null && formData.FrameImage!=null){
-        const storageRef = ref(
-          storage,
-          `/Frame/${Date.now()}${formData.FrameImage.name}`
-        );
+      const articleRef = collection(db, "Frame");
+      const handlePublish = async() => {
+        setProgress('Please wait request processing');
+//  if(formData.Name!=null && formData.Discription!=null && formData.base64Frame!=null){
 
-        const uploadImage = uploadBytesResumable(storageRef, formData.FrameImage);
-        uploadImage.on(
-         "state_changed",
-         (snapshot) => {
-           const progressPercent = Math.round(
-             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-           );
-           setProgress('Please wait request processing');
-         },
-         (err) => {
-           console.log(err);
-         },
-         () => {
-            getDownloadURL(uploadImage.snapshot.ref).then((url) => {
-                const articleRef = collection(db, "Frame");
-               addDoc(articleRef, {      
-             Name:formData.Name,
-             Key:formData.key,
-             FrameImage:url,          
-              createdAt: Timestamp.now().toDate(),
-                })
-                  .then(() => {
-                   
-                    setProgress('Frame added successfully');
-                  })
-                  .catch((err) => {
-                    // alert("Error adding article", { type: "error" });
-                    setProgress('Error adding Frame');
-                  });
-                  //
+try {
+await addDoc(collection(db, "Frame"),{     
+    Name:formData.Name,
+    Key:users?.email,
+    base64Frame:formData.base64Frame,  
+    Discription:formData.Discription,       
+     createdAt: Timestamp.now().toDate(),
+       })
+         .then(() => {
+          
+           setProgress('Frame added successfully');
+         })
+         .catch((err) => {
+           // alert("Error adding article", { type: "error" });
+           setProgress(err);
+         });
+}catch(e){
+  alert(e, { type: "error" });
+} 
+        // const storageRef = ref(
+        //   storage,
+        //   `/Frame/${Date.now()}${formData.FrameImage.name}`
+        // );
+
+        // const uploadImage = uploadBytesResumable(storageRef, formData.FrameImage);
+        // uploadImage.on(
+        //  "state_changed",
+        //  (snapshot) => {
+        //    const progressPercent = Math.round(
+        //      (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        //    );
+        //    setProgress('Please wait request processing');
+        //  },
+        //  (err) => {
+        //    console.log(err);
+        //  },
+        //  () => {
+        //     getDownloadURL(uploadImage.snapshot.ref).then((url) => {
+        //         const articleRef = collection(db, "Frame");
+             
+        //           //
               
-            }
-            );
-            //
-            }
-            );
-          }else{
-            setProgress('INPUT filed is Empty')
-          }
+        //     }
+        //     );
+        //     //
+        //     }
+        //     );
+          // }else{
+          //   setProgress('INPUT filed is Empty')
+          // }
 
         }
-const [database,setDatabase ]=useState(null);
+        const productRef = collection(db, "Frame");
+          
         useEffect(() => {
-            const productRef = collection(db, "Frame");
-            if(users?.email==null){
-            }else{
+           
               const q = query(productRef,  where("Key", "==",users?.email));  onSnapshot(q, (snapshot) => {
                 const frame = snapshot.docs.map((doc) => ({
                   id: doc.id,
                   ...doc.data(),
                 }));
-              setDatabase(frame);
-          
+              setDatabase(frame);         
             });
-            }
+            
            
           
           }, []);
-    const Delete=(id,FrameImage)=>{
+    const Delete=(id)=>{
       try {
         deleteDoc(doc(db, "Frame", id));
        
-        const storageRef = ref(storage,FrameImage);
-        deleteObject(storageRef);
+        // const storageRef = ref(storage,FrameImage);
+        // deleteObject(storageRef);
       } catch (error) {
         alert("Error deleting article", { type: "error" });
        
       }
     }
+    const OpenDelete=()=>{
+      setformData({...formData,dot:true})
+    }
 return(
+  <>
+  {users?
     <div>
       <div>
         <div classNameName="row">
@@ -125,14 +162,16 @@ return(
                         <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                             Select a photo</p>
                     </div>
-                    <input  type='file' name="FrameImage" className="opacity-0"  required  accept="image/*"
+                    <input  type='file' name="FrameImage" id='file_id'  className="opacity-0"  required accept=".png"
                            onChange={(e) => handleImageChange(e)} />
                
                 </label>
             </div>
            
-            {formData.FrameImage? <img src={URL.createObjectURL(formData.FrameImage)} className='w-28 h-28 rounded-md p-1 '/>:''}
+            {formData.base64Frame? <img src={formData.base64Frame} className='w-28 h-28 rounded-md p-1 '/>:''}
             <input className='form-control mt-3' type='text' name='Name' placeholder='Frame Name' required onChange={(e) => handleChange(e)} />
+            <textarea className='form-control mt-3' row='20' col='40' type='text' name='Discription' placeholder='Frame Discrption'  required onChange={(e) => handleChange(e)} />
+           
             </form>
             {progress?<div className=' text-red-500'>{progress } </div>:''}
         </div>
@@ -152,27 +191,30 @@ return(
 
           {database?.map((data,index)=>(
 
-    <div
+    <div  key={data.id}
       className={`flex flex-wrap w-1/3   ${
           database.length > 4 ? "lg:w-2/12" : ""
       }   `}
-      key={index}
+     
     >
       <div
         className="w-full  p-1 md:p-2"
-      //   onClick={() => changGraphics(data.img)}
+    
       >
     
         <img
           alt="gallery"
           className="block object-cover object-center w-full h-full  bg-black rounded-lg"
-          src={data.FrameImage}
+          src={data.base64Frame}
         />
       
       </div>
-      <lable className='flex hover:text-red-500' onClick={()=>Delete(data.id,data.FrameImage)}>
+      <div><BsThreeDots size={20} onClick={OpenDelete}/>  {formData.dot? <span > 
+      <lable className='flex hover:text-red-500 text-sm' onClick={()=>Delete(data.id)}>
       <BsTrashFill size={20}/> Delete
       </lable>
+      </span>:""}
+      </div>
     </div>
 
           )
@@ -185,6 +227,9 @@ return(
       
       </section>
         </div>  
-    </div>
+    </div> :
+  <span> Looding... </span>
+  }
+  </>
 )
 }

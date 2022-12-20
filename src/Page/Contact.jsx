@@ -4,7 +4,7 @@ import ContactList from './ContactList'
 import InputText from './InputText'
 import AreaText from'./AreaText'
 import Button from './Button'
-import  GoogleMap from './GoogleMap'
+
 import { BsFillTelephoneFill,BsFillEnvelopeFill,BsGlobe2 } from "react-icons/bs";
 export default function Contact(){
 const ContactInfos={
