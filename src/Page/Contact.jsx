@@ -40,8 +40,8 @@ const ContactLists={
          <ContactInfo h1={ContactInfos.h1} p={ContactInfos.p} name={ContactInfos.name} StyleButton={ContactInfos.StyleButton} Stylep={ContactInfos.Stylep} styleh1={ContactInfos.Styleh1}/>
       
          </div>
-        <div className=' row gap-8 inline-flex justify-center w-full pb-5'>
-<div className='col-12 col-md-4 col-lg-4 '>
+        <div className=' row gap-8   w-full pb-5'>
+<div className='md:flex md:justify-center md:mx-auto col-12 col-md-3 col-lg-3 '>
     {ContactLists.list.map((data,index)=>(
         <div className='bg-white shadow-md  rounded-md ml-5  px-4  py-1  mt-3'>
          
@@ -51,7 +51,7 @@ const ContactLists={
 
 
 </div>
-<div className='col-12 col-md-5 col-lg-5 pb-5 bg-white shadow-md p-4 rounded-md'>
+{/* <div className='col-12 col-md-5 col-lg-5 pb-5 bg-white shadow-md p-4 rounded-md'>
 <h4>Send Message</h4>
 <p>you can reach us now!</p>
 <div className=' form-group  row mb-4 '>
@@ -67,7 +67,7 @@ const ContactLists={
 <AreaText />
 <Button  StyleButton={ContactInfos.StyleButton} name='Send Message'/>
       
-</div>
+</div> */}
         </div>
        
         </div>

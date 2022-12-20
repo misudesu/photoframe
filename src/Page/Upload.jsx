@@ -17,6 +17,7 @@ export default function Upload(){
         base64Frame:null,
         Discription:null,
         dot:false,
+        progressS:null
       })
       const [database,setDatabase ]=useState(null);
   const [imageview,setImageView]=useState('');
@@ -65,7 +66,7 @@ await addDoc(collection(db, "Frame"),{
        })
          .then(() => {
           
-           setProgress('Frame added successfully');
+           setformData({...formData,progressS:'Frame added successfully'});
          })
          .catch((err) => {
            // alert("Error adding article", { type: "error" });
@@ -174,6 +175,7 @@ return(
            
             </form>
             {progress?<div className=' text-red-500'>{progress } </div>:''}
+            {formData.progressS?<div className=' text-green-500 '>{formData.progressS } </div>:''}
         </div>
       
         <div className="flex p-2 space-x-4">
