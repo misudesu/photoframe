@@ -202,10 +202,11 @@ setNotificationTwo('Pelase Select a Photo!')
       console.log('Uploaded a base64 string!');
       getDownloadURL(snapshot.ref).then((url) => {
         setFburl(url);
+        setImage({...image,export:true})
       });
     });   
    } );
-   setImage({...image,export:true})
+  
   }
  
 }
