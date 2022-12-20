@@ -47,18 +47,7 @@ const Frame = () => {
   };
   const changGraphics = (image) => {
     
-    imageToBase64(image) // Image URL
-    .then(
-        (response) => {
-            console.log(response); // "iVBORw0KGgoAAAANSwCAIA..."
-            setGraphics(response);
-        }
-    )
-    .catch(
-        (error) => {
-            console.log(error); // Logs an error if there was one
-        }
-    )
+    setGraphics(image);
    };
 
   const download = () => {
@@ -190,6 +179,7 @@ function exports(){
   if(image.image=='one'){
 setNotificationTwo('Pelase Select a Photo!')
   }else{
+    setNotificationTwo('Please wait request processing...')
     const screenshotTarget = document.getElementById("image");
     html2canvas(screenshotTarget).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
@@ -199,8 +189,9 @@ setNotificationTwo('Pelase Select a Photo!')
       `/Temp/${Date.now()}${image.image}`);
     
     uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
-      console.log('Uploaded a base64 string!');
+   
       getDownloadURL(snapshot.ref).then((url) => {
+        setNotificationTwo('')
         setFburl(url);
         setImage({...image,export:true})
       });

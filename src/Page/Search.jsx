@@ -67,6 +67,7 @@ const sendFrame=(image)=>{
           }   `}>
               {results.map(el => (
                 <div className=''>
+                  {results.length==0?<span>Looding...</span>:''}             
         <Link to={`/frame`} state={{SelectedGraphics:el.base64Frame}}>
            <div key={results.length} className='  rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
    <img src={el.base64Frame} className='w-32  ' alt={el.Name} />

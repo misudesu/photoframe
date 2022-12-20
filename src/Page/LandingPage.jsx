@@ -25,7 +25,7 @@ return(
 <p className='w-[400px] mt-4 mb-4  text-justify text-center md:text-left'>{Database.firstDis}</p>
 <div className='flex justify-center items-center mx-auto'>
 <Link to='/search'>
-<button className='text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>Add a photo Frame Now</button>
+<button className='text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>Select photo Frame Now</button>
 </Link>
 </div>
 </div>
