@@ -1,13 +1,14 @@
 import React,{useState} from 'react'
+import {BsPerson,BsBoxArrowInRight} from "react-icons/bs"
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import {BsPerson} from "react-icons/bs"
 import {Link}  from "react-router-dom"
 import LOGIN from './LOGIN'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { storage, db, auth } from "../Server/Configer";
+import { signOut } from "firebase/auth";
 const Navigation = () => {
   const [nav,setNav]=useState(false);
   const eventHandler=()=>{
@@ -44,7 +45,7 @@ const Navigation = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
+                  {/* <img
                     className="block h-8 w-auto lg:hidden"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="የኔ Frame"
@@ -53,10 +54,12 @@ const Navigation = () => {
                     className="hidden h-8 w-auto lg:block"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="የኔ Frame"
-                  />
+                  /> */}
+                 
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
+                    
                     {navigation.map((item) => (
                       <Link
                         key={item.name}
@@ -82,8 +85,9 @@ const Navigation = () => {
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
-                <LOGIN/>
-                {/* <Link to='signup' >SignUp</Link> */}
+                {/* <LOGIN/> */}
+                {user? <Link to='signup' ><BsBoxArrowInRight onClick={()=>{signOut(auth)}} size={20} className="h-6 w-6" aria-hidden="true" /> </Link>:<Link to='signup' ><BsPerson  size={20} className="h-6 w-6" aria-hidden="true" /> </Link> }  
+                
                 </button>
 
                 {/* Profile dropdown */}

@@ -11,11 +11,10 @@ const Footer = () => {
 <div className='col-12 col-md-4 col-lg-4 text-center'>
 <Link to='about' ><button>About</button></Link> <br/>
 <Link to='contact'><button>Contact</button></Link>
-
 </div>
 <div className='col-12 col-md-4 col-lg-4 text-center'>
-<p>Terms & Conditions</p>
-<p>Privacy Policy</p>
+<Link to='term'><button>Terms & Conditions</button></Link> <br/>
+<Link to='privacy'><button>Privacy Policy</button></Link>
 </div>
 
 <div className='text-center font-bold mb-5'>&copy; 2022, All Rights Reserver by የኔ Frame  </div>

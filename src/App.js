@@ -9,6 +9,9 @@ import Footer from './Page/Footer';
 import About from './Page/About'
 import Upload from './Page/Upload'
 import SignUp from './Page/SignUp'
+import Signin from './Page/Signin';
+import Privacy from './Page/Privacy';
+import Terms from './Page/Terms';
 function App() {
   return (
      <HashRouter>
@@ -22,6 +25,9 @@ function App() {
        <Route path='/about' element={<About/>}/>
        <Route path='/uplood' element={<Upload/>}/>
        <Route path='/signup' element={<SignUp/>}/>
+       <Route path='/login' element={<Signin/>}/>
+       <Route path='/privacy' element={<Privacy/>}/>
+       <Route path='/term' element={<Terms/>}/>
       </Route>
     </Routes>
     <Footer/>

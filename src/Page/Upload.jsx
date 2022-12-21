@@ -149,7 +149,7 @@ return(
         <div className="m-4">
           <form>
             <label className="inline-block mb-2 text-gray-500">Upload
-                Image(jpg,png,svg,jpeg)</label>
+                Image(png )</label>
             <div className="flex items-center justify-center w-full">
                 <label name='FrameImage' className="flex flex-col w-full h-32 border-4 border-dashed  hover:bg-gray-100 hover:border-gray-300">
                     <div className="flex flex-col items-center justify-center pt-7">
@@ -180,7 +180,7 @@ return(
       
         <div className="flex p-2 space-x-4">
          
-            <button className="px-4 py-2 text-white bg-green-500 rounded shadow-xl" onClick={ handlePublish}>Submit</button>
+            <button className="px-4 py-2 text-white bg-green-500 rounded shadow-xl ml-4" onClick={ handlePublish}>Submit</button>
         </div>
     </div>
 </div>

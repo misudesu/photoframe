@@ -15,7 +15,10 @@ import { storage, db, auth } from "../Server/Configer";
 import { getStorage, ref, uploadBytes,uploadString ,getDownloadURL} from "firebase/storage";
 import { BsShareFill } from "react-icons/bs";
 import domtoimage from "dom-to-image-more";
+import { Stepper } from 'react-form-stepper';
 import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Frame = () => {
   const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
@@ -177,21 +180,18 @@ const storageRef = ref(storage,
  const[notif,setNotificationTwo]=useState('')
 function exports(){
   if(image.image=='one'){
-setNotificationTwo('Pelase Select a Photo!')
+    toast('Pelase Select a Photo!')
   }else{
-    setNotificationTwo('Please wait request processing...')
+    toast('Please wait request processing...')
     const screenshotTarget = document.getElementById("image");
     html2canvas(screenshotTarget).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
-   
     const storage = getStorage();
     const storageRef = ref(storage,
       `/Temp/${Date.now()}${image.image}`);
-    
     uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
-   
       getDownloadURL(snapshot.ref).then((url) => {
-        setNotificationTwo('')
+        toast('Process completed You can Hare Now!');
         setFburl(url);
         setImage({...image,export:true})
       });
@@ -204,6 +204,7 @@ setNotificationTwo('Pelase Select a Photo!')
 
   return (
     <div>
+       <ToastContainer />
       <div className="container-fluid">
         <div className="row align-items-center m-4">
           <div className="col-12 col-lg-6 col-md-6 ">
@@ -265,13 +266,7 @@ setNotificationTwo('Pelase Select a Photo!')
           <div className="col-12 col-lg-6 col-md-6  text-right ">
          
             <div>
-            <span className='mr-4'>{notif}</span>
-          <button
-                  className="bg-blue-400  py-1 text-right btn btn-primary rounded-md text-white text-sm font-bold px-3"
-                  onClick={exports}
-                >
-                  Export
-                </button>
+           
             <label name='FrameImage' className="flex flex-col w-full h-20 mt-5 md:h-32 border-4 border-dashed  hover:bg-gray-100 hover:border-gray-300">
                    
                     <div className="flex flex-col items-center justify-center md:pt-7">
@@ -337,6 +332,7 @@ setNotificationTwo('Pelase Select a Photo!')
                 />{" "}
                 {value}
               </div>
+             
               {notification ? (
                 <div className="flex justify-center items-center mx-auto gap-4 mt-4 ">
                   {" "}
@@ -347,6 +343,16 @@ setNotificationTwo('Pelase Select a Photo!')
               ) : (
                 <div></div>
               )}
+              <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
+              <button
+                  className="bg-blue-400 py-1 btn btn-primary rounded-md text-white text-sm font-bold px-3"
+                  onClick={exports}
+                >
+                  Next
+                </button>
+                <span className='mr-4'>{notif}</span>
+              </div>
+               
               {/* choose file and create Frame Menu */}
            {image.export?  <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
             
@@ -367,7 +373,8 @@ setNotificationTwo('Pelase Select a Photo!')
             </div>
           </div>
         </div>
-        <section class="overflow-auto  text-gray-700 ">
+
+        {/* <section class="overflow-auto  text-gray-700 ">
           <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
             <div class="flex flex-wrap -m-1 md:-m-2">
               {search.data.map((data, index) => (
@@ -391,7 +398,7 @@ setNotificationTwo('Pelase Select a Photo!')
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
