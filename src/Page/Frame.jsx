@@ -363,10 +363,9 @@ function exports(){
                   Download
                 </button>
                
-                <FacebookButton url={fburl} className='flex gap-4' appId='829828258275482'>
+                <FacebookButton url={fburl} className='flex gap-4 btn btn-primery' appId='829828258275482'>
                 <BsShareFill size={20}/>
-        <FacebookCount url={fburl} />
-        {" Share now " }
+       
       </FacebookButton>
               </div>:'' }
               {/*  */}

@@ -24,7 +24,7 @@ function signUp(){
     
         handleSignup();
     }else{
-        toast('Password not the same!')
+        toast('Password are not The Same!')
     }
 }
 
@@ -38,7 +38,7 @@ const handleSignup = async () => {
     }
   };
   function handleSignUp(){
-    toast('Acount Created successfully go to Login');
+    toast('Acount Created successfully go to Login Page');
   }
     return(
         <div>
@@ -57,7 +57,7 @@ const handleSignup = async () => {
 <input  className='form-control' type='password' id='password' name='password'  required onChange={(e)=>onchange(e)} placeholde='Enter Password'/>
 </lable>
 <lable for='password'> 
-<p>Rept Password</p>
+<p>Repeat Password</p>
 <input  className='form-control' type='password' id='password' name='ReptPassword' required  onChange={(e)=>onchange(e)} placeholde='Enter Password'/>
 </lable>
 

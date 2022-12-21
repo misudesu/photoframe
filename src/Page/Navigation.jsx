@@ -77,8 +77,7 @@ const Navigation = () => {
                   </div>
                 </div>
               </div>
-              {user?<Link to='uplood' className=" px-4 text-blue-800 mr-8 hover:bg-gray-700 hover:text-white ',
-                          'px-3 py-2 rounded-md text-sm font-medium"><button>Add Frame </button></Link>:''}
+             
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"

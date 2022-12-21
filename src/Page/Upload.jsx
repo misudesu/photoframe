@@ -7,6 +7,9 @@ import { storage, db, auth } from "../Server/Configer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import RetravFrame from './RetravFrame'
 import imageToBase64 from 'image-to-base64/browser';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Upload(){
     const [users] = useAuthState(auth);
     const [progress,setProgress]=useState(null);
@@ -32,11 +35,11 @@ export default function Upload(){
     
         if(upl.files[0].size > max)
         {
-          setProgress("File too big! must be less then 500 kb")
+          toast("File too big! must be less then 500 kb")
          
            upl.value = "";
         }else{
-          setProgress('')
+        
          
         var file = document.querySelector('input[type=file]')['files'][0];
         var reader = new FileReader();
@@ -48,14 +51,13 @@ export default function Upload(){
         };
       const frame=  reader.readAsDataURL(file);
    
-        setProgress('')
         }
       };
       const articleRef = collection(db, "Frame");
       const handlePublish = async() => {
-        setProgress('Please wait request processing');
-//  if(formData.Name!=null && formData.Discription!=null && formData.base64Frame!=null){
-
+      
+  if(formData.Name!=null && formData.Discription!=null && formData.base64Frame!=null){
+    toast('Please wait request processing');
 try {
 await addDoc(collection(db, "Frame"),{     
     Name:formData.Name,
@@ -66,14 +68,14 @@ await addDoc(collection(db, "Frame"),{
        })
          .then(() => {
           setProgress('')
-           setformData({...formData,progressS:'Frame added successfully'});
+          toast('Frame added successfully');
          })
          .catch((err) => {
            // alert("Error adding article", { type: "error" });
-           setProgress(err);
+           toast(err);
          });
 }catch(e){
-  alert(e, { type: "error" });
+  toast(e, { type: "error" });
 } 
         // const storageRef = ref(
         //   storage,
@@ -105,7 +107,9 @@ await addDoc(collection(db, "Frame"),{
         //     );
           // }else{
           //   setProgress('INPUT filed is Empty')
-          // }
+           }else{
+            toast('All information Requerd');
+           }
 
         }
         const productRef = collection(db, "Frame");
@@ -130,8 +134,7 @@ await addDoc(collection(db, "Frame"),{
         // const storageRef = ref(storage,FrameImage);
         // deleteObject(storageRef);
       } catch (error) {
-        alert("Error deleting article", { type: "error" });
-       
+        toast("Error deleting article", { type: "error" });      
       }
     }
     const OpenDelete=()=>{
@@ -141,6 +144,7 @@ return(
   <>
   {users?
     <div>
+        <ToastContainer />
       <div>
         <div classNameName="row">
 <div classNameName='col-12'>
@@ -174,8 +178,7 @@ return(
             <textarea className='form-control mt-3' row='20' col='40' type='text' name='Discription' placeholder='Frame Discrption'  required onChange={(e) => handleChange(e)} />
            
             </form>
-            {progress?<div className=' text-red-500'>{progress } </div>:''}
-            {formData.progressS?<div className=' text-green-500 '>{formData.progressS } </div>:''}
+       
         </div>
       
         <div className="flex p-2 space-x-4">

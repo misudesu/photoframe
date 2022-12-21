@@ -3,7 +3,7 @@ import {BiSearch } from "react-icons/bi";
 import Database from './Database'
 import YouTube from 'react-youtube';
 import {Link} from 'react-router-dom'
-
+import upload from '../asset/gg.PNG'
 import { BsFillRecordFill } from "react-icons/bs";
 const LandingPage=()=>{
   const opts = {
@@ -44,7 +44,7 @@ return(
 <div className='  flex  items-center justify-center '>
 <div className=' grid md:grid-cols-2 gap-4 items-center px-5'>
         <div>
-          <YouTube videoId="Or-a-0V-UEE" opts={opts}  />
+        <img src={upload} className='w-[350] h-[290]'/>
           </div>
           <div className=''>
             <h5>How to Add A Photo Frame to Your Photos?</h5>
