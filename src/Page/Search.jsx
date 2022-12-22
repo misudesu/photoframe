@@ -7,6 +7,8 @@ import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,del
 import { storage, db, auth } from "../Server/Configer";
 import imageToBase64 from 'image-to-base64/browser';
 import { useAuthState } from "react-firebase-hooks/auth";
+import Pagination from "react-js-pagination";
+//require("bootstrap/less/bootstrap.less");
 const Search=()=>{
   const [user] = useAuthState(auth);
     const [search,setSearch]=useState(
@@ -45,6 +47,14 @@ const sendFrame=(image)=>{
       }
   )
 
+}
+const [state ,setStates] = useState({
+  activePage: 15,
+});
+const page=[1,2,3,4,5,6,7,8,9]
+function handlePageChange(pageNumber) {
+  console.log(`active page is ${pageNumber}`);
+  setStates({activePage: pageNumber});
 }
     return(
         <div className=' bg-gradient-to-b from-gray-300  h-screen '>
@@ -88,6 +98,21 @@ const sendFrame=(image)=>{
                           'px-3 py-2 rounded-md text-sm font-medium"><button>Add Frame </button></Link>:<Link to='/login' className=" px-4 text-blue-800 ml-8 hover:bg-gray-700 hover:text-white ',
                           'px-3 py-2 rounded-md bg-blue-500 mt-5 text-white text-sm font-medium"><button>Add Frame </button></Link>}
                           </div>   
+
+                          <div className='flex justify-between'>
+                            <p stayle={{
+
+}}>Privew</p>
+
+<Pagination
+          activePage={state.activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={450}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange.bind(this)}
+        />
+<p>next</p>
+                             </div>
         </div>
     )
 }
