@@ -14,7 +14,7 @@ import Privacy from './Page/Privacy';
 import Terms from './Page/Terms';
 function App() {
   return (
-     <BrowserRouter>
+     <HashRouter>
    <Navigation/>
     <Routes>
       <Route>
@@ -31,7 +31,7 @@ function App() {
       </Route>
     </Routes>
     <Footer/>
-  </BrowserRouter>   
+  </HashRouter>   
   );
 }
 
