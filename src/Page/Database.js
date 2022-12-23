@@ -21,8 +21,8 @@ howto:[
      {name:'Download your image.'}
 ],
 //   for landing page only
-        image1:landone,
-        image2:frameImage,
+        image1:'https://firebasestorage.googleapis.com/v0/b/enzemr-9b526.appspot.com/o/my-image%20(4).png?alt=media&token=8bc80cb1-6dc8-4e8b-8aa5-b7be5976a251',
+        image2:'https://firebasestorage.googleapis.com/v0/b/enzemr-9b526.appspot.com/o/new.PNG?alt=media&token=a1edcf92-5a05-45cb-ae29-95adb0ef909a',
         secondDis:"Photo frame is a unique photo effect, and you can use the frame to add subtle or contrast to your photo and enhance its layout. You can adjust the outer size, inner size, rounder corner of an image in the የኔ frame and add a special perspective to the photo. A የኔ photo frame would be great for your event photos in the best way. See what kinds of great things you can create with the square picture frames",
         firstDis:'Each day, around the world millions of Profile Frames are used to celebrate important moments, to cheer teams on to victory, and to show support for special causes.'
     // photo edit option

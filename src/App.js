@@ -20,7 +20,7 @@ function App() {
       <Route>
        <Route exact path='/'  element={<LandingPage/>}/> 
        <Route path='/search'  element={<Search/>} /> 
-       <Route path='/frame/:type' element={<Frame/>}/>
+       <Route path="/frame" element={<Frame/>}/>
        <Route path='/contact' element={<Contact/>}/>
        <Route path='/about' element={<About/>}/>
        <Route path='/uplood' element={<Upload/>}/>

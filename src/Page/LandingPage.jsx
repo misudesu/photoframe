@@ -3,7 +3,7 @@ import {BiSearch } from "react-icons/bi";
 import Database from './Database'
 import YouTube from 'react-youtube';
 import {Link} from 'react-router-dom'
-import upload from '../asset/gg.PNG'
+
 import { BsFillRecordFill } from "react-icons/bs";
 const LandingPage=()=>{
   const opts = {
@@ -14,6 +14,7 @@ const LandingPage=()=>{
       autoplay: 0,
     },
   };
+  const upload='https://firebasestorage.googleapis.com/v0/b/enzemr-9b526.appspot.com/o/gg.PNG?alt=media&token=b0a6a354-c1c4-45b5-9037-b16de251adcb'
 return(
     <div className='bg-[#F8FAFC] '>
       <div className='flex-grow w-full md:w-[1200px]  mx-[34px]    mx-auto   items-center'>

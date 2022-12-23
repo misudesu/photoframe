@@ -31,7 +31,7 @@ export default function Images(props){
           }   `}>
               {currentItems.map(el => (
                 <div className=''>                           
-        <Link to={`/frame/${el.base64Frame}`} state={{SelectedGraphics:el.base64Frame}}>
+        <Link to={`/frame`} state={{SelectedGraphics:el.base64Frame}}>
            <div key={results.length} className='  rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
    <img src={el.base64Frame} className='w-32'  alt={el.Name} />
    </div>
@@ -43,6 +43,7 @@ export default function Images(props){
         />
        
         <ReactPaginate
+      
 breakLabel="..."
 nextLabel="next >" 
 onPageChange={handlePageClick}

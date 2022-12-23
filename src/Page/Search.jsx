@@ -60,13 +60,13 @@ function handlePageChange(pageNumber) {
     return(
         <div className=' bg-gradient-to-b from-gray-300   '>
 <div className='flex  items-center justify-center  '>
-    <div className='flex bg-[#FFFFFF] gap-2 p-2 rounded-lg w-8/12 items-center justify-center mt-[100px] '>
+    {/* <div className='flex bg-[#FFFFFF] gap-2 p-2 rounded-lg w-8/12 items-center justify-center mt-[100px] '>
     
     <input type="search" value={search.value} onChange={(e)=>handleChange(e)} class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"/>
      
     <button className='bg-blue-500 p-2 text-white rounded-md'><BiSearch size={22} /></button>
-    </div>
-   
+    </div> */}
+   <h1 className='text-5xl w-[659px] text-[52px]  leading-[60px] font-bold text-center  mt-14'>Unlimited options give you the <span className='text-green-500'> ultimate </span> flexibility </h1>
 </div>
 
 <div >
