@@ -94,9 +94,8 @@ const storageRef = ref(storage,
     //   link.href=dataUrl;
     //   link.click();
     // })
-    
-      var anchor = document.createElement("a");
 
+      var anchor = document.createElement("a");
       anchor.setAttribute("href", base64image);
       anchor.setAttribute("download", "my-image.png");
       anchor.click();
