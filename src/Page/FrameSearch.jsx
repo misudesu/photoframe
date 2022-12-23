@@ -33,7 +33,7 @@ export default function Images(props){
                 <div className=''>                           
         <Link to={`/frame`} state={{SelectedGraphics:el.base64Frame}}>
            <div key={results.length} className=' rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
-   <img src={el.base64Frame} className='w-48'  alt={el.Name} />
+   <img src={el.base64Frame} className='w-32 md:w-48 '  alt={el.Name} />
    </div>
    </Link>
 </div>
