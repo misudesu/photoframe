@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import {Link} from 'react-router-dom'
 const Footer = () => {
   return (
-    <div className='container'>
+    <div className='container relative '>
         <div className=' row mt-5'>
 <div className='col-12 col-md-4 col-lg-4 '>
 <p className='text-3xl font-bold text-center  '>የኔ Frame</p>

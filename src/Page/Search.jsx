@@ -9,6 +9,7 @@ import imageToBase64 from 'image-to-base64/browser';
 import { useAuthState } from "react-firebase-hooks/auth";
 import Pagination from "react-js-pagination";
 //require("bootstrap/less/bootstrap.less");
+import FrameSearch from './FrameSearch';
 const Search=()=>{
   const [user] = useAuthState(auth);
     const [search,setSearch]=useState(
@@ -19,7 +20,7 @@ const Search=()=>{
     )
     useEffect(()=>{
       const productRef = collection(db, "Frame");
-        const q = query(productRef,   orderBy("createdAt", "desc"),limit(6));  onSnapshot(q, (snapshot) => {
+        const q = query(productRef,   orderBy("createdAt", "desc"));  onSnapshot(q, (snapshot) => {
           const frame = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -57,7 +58,7 @@ function handlePageChange(pageNumber) {
   setStates({activePage: pageNumber});
 }
     return(
-        <div className=' bg-gradient-to-b from-gray-300  h-screen '>
+        <div className=' bg-gradient-to-b from-gray-300   '>
 <div className='flex  items-center justify-center  '>
     <div className='flex bg-[#FFFFFF] gap-2 p-2 rounded-lg w-8/12 items-center justify-center mt-[100px] '>
     
@@ -72,25 +73,7 @@ function handlePageChange(pageNumber) {
 
    <div className='flex flex-grow md:gap-4 mt-4  items-center justify-center   '>
  
-   <FilterResults
-          value={search.value}
-          data={search.data}
-          renderResults={results => (
-            <div className={`flex flex-wrap md:w-2/3 w-3/3 h-scren ${
-              results.length > 4 ? "lg:w-10/12 h-scren" : ""
-          }   `}>
-              {results.map(el => (
-                <div className=''>                           
-        <Link to={`/frame`} state={{SelectedGraphics:el.base64Frame}}>
-           <div key={results.length} className='  rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
-   <img src={el.base64Frame} className='w-32  ' alt={el.Name} />
-   </div>
-   </Link>
-</div>
-      ))}
-            </div>
-          )}
-        />
+   <FrameSearch  data={search.data} value={search.value}/>
    
    </div>
 </div>
@@ -100,18 +83,7 @@ function handlePageChange(pageNumber) {
                           </div>   
 
                           <div className='flex justify-between'>
-                            <p stayle={{
-
-}}>Privew</p>
-
-<Pagination
-          activePage={state.activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={450}
-          pageRangeDisplayed={5}
-          onChange={handlePageChange.bind(this)}
-        />
-<p>next</p>
+                        
                              </div>
         </div>
     )
