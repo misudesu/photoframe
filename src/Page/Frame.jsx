@@ -20,8 +20,8 @@ import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Frame = () => {
-  const {SelectedGraphics}=useParams();
-//  const { SelectedGraphics } = useLocation().state;
+  // const {SelectedGraphics}=useParams();
+ const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
     image: "one",
     size: 400,
@@ -94,8 +94,7 @@ const storageRef = ref(storage,
     //   link.href=dataUrl;
     //   link.click();
     // })
-  
-  
+    
       var anchor = document.createElement("a");
 
       anchor.setAttribute("href", base64image);
@@ -192,7 +191,7 @@ function exports(){
       `/Temp/${Date.now()}${image.image}`);
     uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        toast('Process completed You can Hare Now!');
+        toast('Process completed You can  Now Share!');
         setFburl(url);
         setImage({...image,export:true})
       });
