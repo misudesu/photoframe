@@ -9,7 +9,7 @@ export default function Images(props){
     const [currentItems,setCurrentItems]=useState([]);
     const [pageCount,setPageCount]=useState(0);
     const [itemOffset,setItemOffset]=useState(0);
-    const itemsPerPage=6;
+    const itemsPerPage=15;
     useEffect(()=>{
         const endOffset=itemOffset+itemsPerPage;
         setCurrentItems(data.slice(itemOffset,endOffset));
@@ -26,14 +26,14 @@ export default function Images(props){
           value={props.value}
           data={currentItems}
           renderResults={results => (
-            <div className={`flex flex-wrap md:w-12/12 w-3/3 h-scren ${
+            <div className={`flex flex-wrap items-center justify-center mx-auto md:w-12/12 w-3/3 h-scren ${
               results.length > 4 ? "lg:w-12/12 h-scren" : ""
           }   `}>
               {currentItems.map(el => (
                 <div className=''>                           
         <Link to={`/frame`} state={{SelectedGraphics:el.base64Frame}}>
-           <div key={results.length} className='  rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
-   <img src={el.base64Frame} className='w-32'  alt={el.Name} />
+           <div key={results.length} className=' rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
+   <img src={el.base64Frame} className='w-48'  alt={el.Name} />
    </div>
    </Link>
 </div>

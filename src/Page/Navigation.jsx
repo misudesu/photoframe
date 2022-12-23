@@ -77,7 +77,7 @@ const Navigation = () => {
                   </div>
                 </div>
               </div>
-             
+    
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
@@ -85,7 +85,7 @@ const Navigation = () => {
                 >
                   <span className="sr-only">View notifications</span>
                 {/* <LOGIN/> */}
-                {user? <Link to='signup' ><BsBoxArrowInRight onClick={()=>{signOut(auth)}} size={20} className="h-6 w-6" aria-hidden="true" /> </Link>:<Link to='signup' ><BsPerson  size={20} className="h-6 w-6" aria-hidden="true" /> </Link> }  
+                {user? <Link to='signup' ><BsBoxArrowInRight  onClick={()=>{signOut(auth)}} size={20} className="h-6 w-6" aria-hidden="true" /> </Link>:<Link to='signup' ><BsPerson  size={20} className="h-6 w-6" aria-hidden="true" /> </Link> }  
                 
                 </button>
 

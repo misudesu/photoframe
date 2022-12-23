@@ -24,7 +24,7 @@ function onchange(e){
 const handleSignin = async () => {       
     try {
         await signInWithEmailAndPassword(auth, formData.Email, formData.password);    
-        navigate("/");
+        navigate("/uplood");
         
       } catch (error) {
         toast(error.code, { type: "error" });

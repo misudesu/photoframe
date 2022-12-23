@@ -66,7 +66,7 @@ function handlePageChange(pageNumber) {
      
     <button className='bg-blue-500 p-2 text-white rounded-md'><BiSearch size={22} /></button>
     </div> */}
-   <h1 className='text-5xl w-[659px] text-[52px]  leading-[60px] font-bold text-center  mt-14'>Unlimited options give you the <span className='text-green-500'> ultimate </span> flexibility </h1>
+   <h1 className= 'text-5xl w-[659px] text-[52px]  md:leading-[60px] font-bold text-center  mt-14'>Unlimited options give you the <span className='text-blue-500'> ultimate </span> flexibility </h1>
 </div>
 
 <div >
