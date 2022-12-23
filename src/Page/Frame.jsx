@@ -7,7 +7,7 @@ import { BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { BsArrowCounterclockwise, BsArrowClockwise } from "react-icons/bs";
 import Function from "./Function";
 import Database,{DEFAULT_OPTIONS} from "./Database";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useParams } from "react-router-dom";
 import PhotoEditer from "./PhotoEditer";
 import Slider from "./Slider";
 import { Timestamp,collection, onSnapshot, orderBy, query,addDoc,doc, where ,deleteDoc } from "firebase/firestore";
@@ -20,7 +20,8 @@ import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Frame = () => {
-  const { SelectedGraphics } = useLocation().state;
+  const {SelectedGraphics}=useParams();
+//  const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
     image: "one",
     size: 400,
