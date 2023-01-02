@@ -30,8 +30,8 @@ const Frame = () => {
     rotate: "0",
     zindex: "-z-50",
     export:false,
-    wh:600,
-    ww:400,
+    wh:800,
+    ww:800,
     positiony:'',
   });
   const position = { x: 0, y: 0 };
@@ -43,10 +43,10 @@ const Frame = () => {
   const [zindex, setZindex] = useState("-3");
   const [opacity, setOpacity] = useState("1");
   const Inc = () => {
-    setImage({ ...image, size: image.size + 10,wh: image.size + 20 });
+    setImage({ ...image, size: image.size + 10,wh: image.wh + 20 });
   };
   const Dic = () => {
-    setImage({ ...image, size: image.size - 10,wh: image.size - 20 });
+    setImage({ ...image, size: image.size - 10,wh: image.wh - 20 });
   };
   const Left = () => {
     setImage({ ...image, rotate: image.rotate - 10 });
@@ -89,16 +89,16 @@ const storageRef = ref(storage,
     //   link.click();
     // });
    
-    const screenshotTarget = document.querySelectorAll("#export1").forEach(el=>{
-      el.style.width="800px";
-     el.style.height="800px";
-    });
-    const screenshotTargetg = document.querySelectorAll("#g").forEach(el=>{
-     // el.style.width="560px";
-      //el.style.height="560px";
-      //el.style.backgroundImage=`url(${SelectedGraphics})`;
-     // el.style.backgroundSize="560px,560px"
-    });
+    // const screenshotTarget = document.querySelectorAll("#export").forEach(el=>{
+    //   el.style.width="800px";
+    //  el.style.height="800px";
+    // });
+    // const screenshotTargetg = document.querySelectorAll("#g").forEach(el=>{
+    //  // el.style.width="560px";
+    //   //el.style.height="560px";
+    //   //el.style.backgroundImage=`url(${SelectedGraphics})`;
+    //  // el.style.backgroundSize="560px,560px"
+    // });
     const screenshotTargeti = document.querySelectorAll("#export").forEach(el=>{
       const screenshotTarget = document.querySelectorAll("#image").forEach(ei=>{
         const screenshotTargeti = document.querySelectorAll("#export").forEach(eg=>{
@@ -107,16 +107,16 @@ const storageRef = ref(storage,
       el.style. backgroundImage= `url(${image.image})`;
       el.style.touchAction= "none";
       el.style. userselect= "none";
-      el.style. backgroundSize= `  800px,800px`; 
+      el.style. backgroundSize=`${image.wh}px,${image.wh}px` 
       el.style.transform = ei.style.transform;
-    el.style. width= eg.style.width;
-      el.style. height= eg.style.height;
+    el.style. width= '800px';
+      el.style. height= '800px';
       el.style. backgroundRepeat= "no-repeat";
     });
     });
   });
 
-    //const yu= document.createElement(screenshotTarget);
+    // const yu= document.createElement(screenshotTarget);
   
  
     
@@ -162,12 +162,12 @@ const storageRef = ref(storage,
 
 html2canvas(document.querySelector("#image")).then(canvas => {
   //document.body.appendChild(canvas.toDataURL());
-  let uiui=document.getElementById("image");
-let images = new Image();
-images.src =SelectedGraphics;
-images.width=800;
-images.setAttribute('id','misu');
-images.setAttribute('style',`background-image:url(${ canvas.toDataURL("image/jpeg",1.0)});background-repeat: no-repeat; background-size:100%,100%`);
+//   let uiui=document.getElementById("image");
+// let images = new Image();
+// images.src =SelectedGraphics;
+// images.width=800;
+// images.setAttribute('id','misu');
+// images.setAttribute('style',`background-image:url(${ canvas.toDataURL("image/jpeg",1.0)});background-repeat: no-repeat; background-size:100%,100%`);
 //document.body.appendChild(images);
   //console.log(images)
   html2canvas(document.querySelector("#ui")).then(canvas => {
@@ -186,7 +186,7 @@ var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stre
   var anchor = document.createElement("a");
         anchor.setAttribute("href", newData);
         anchor.setAttribute("download", "my-image.png");
-       anchor.click();
+      anchor.click();
         anchor.remove();
   });
 });
@@ -324,6 +324,7 @@ function exports(){
           <div className="col-12 col-lg-6 col-md-6 ">
             <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[280px] h-[280px] md:w-[400px] md:h-[400px] shadow-lg justify-center items-center mx-auto ">
               <div
+              
                 className="image relative justify-center mx-auto shadow-lg w-[260px] h-[260px] md:w-[380px] md:h-[380px] mt-2 "     
                 style={{
                   backgroundColor: "#fff",
@@ -351,8 +352,8 @@ function exports(){
 
  
                 <div 
-                 // id="draggable"
-                  id="image"
+                //  id="draggable"
+                 id="image"
                   className={`draggable bg-auto w-full h-full `}
                   style={{
                     position: "absolute",
@@ -364,7 +365,9 @@ function exports(){
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "top ",
                     transform: "rotate(" + image.rotate + "deg)",
-                    //resize: "both",
+                    resize: "both",
+                    width: `${image.size}px`,
+                    height: `${image.size}px`,
                     top: "0px",
                     left: "0px",
                     zIndex: `${zindex}`,
@@ -491,33 +494,9 @@ function exports(){
           </div>
         </div>
 
-        {/* <section class="overflow-auto  text-gray-700 ">
-          <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 md:justify-center md:mx-auto">
-            <div class="flex flex-wrap -m-1 md:-m-2">
-              {search.data.map((data, index) => (
-                <div
-                  class={`flex flex-wrap w-1/3   ${
-                    search.data.length > 4 ? "lg:w-2/12" : ""
-                  }   `}
-                  key={index}
-                >
-                  <div
-                    class="w-full  p-1 md:p-2"
-                    onClick={() => changGraphics(data.base64Frame)}
-                  >
-                    <img
-                      alt="gallery"
-                      class="block object-cover object-center w-full h-full  bg-black rounded-lg"
-                      src={data.base64Frame}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
+      
 
-        <div className="relative ui h-[800px] w-[800px] overflow-hidden hidden" id="ui">
+        <div className="relative ui h-[800px] w-[800px] overflow-hidden " id="ui">
         <div  className='absolute w-full h-full'  id="export"></div>
           <img src={SelectedGraphics} className='absolute' id="export1" />    
         </div>
