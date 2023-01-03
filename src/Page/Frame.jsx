@@ -318,7 +318,7 @@ function exports(){
     toast('Pelase Select a Photo!')
   }else{
     toast('Please wait request processing...')
-    setImage({...image,export:true})
+  
     const screenshotTarget = document.getElementById("image");
     window.devicePixelRatio = 2;
   htmlToImage.toPng(document.getElementById("image"),{ quality: 0.95 })
@@ -505,7 +505,7 @@ function exports(){
               </div>
                
               {/* choose file and create Frame Menu */}
-           {image.export?  <div className="   align-items-end items-center mx-auto  gap-4 mt-4 ">
+           {image.export==true?  <div className="   align-items-end items-center mx-auto  gap-4 mt-4 ">
               <button
                 id='save'
                   className="bg-blue-400 w-full py-1 btn btn-secondary rounded-md text-white text-sm font-bold px-3"
