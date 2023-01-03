@@ -41,7 +41,6 @@ export default function Images(props){
      
     <button className='bg-blue-500 p-2 text-white rounded-md'><BiSearch size={22} /></button>
     </div>
-  
 </div> */}
        <FilterResults
           value={search.value}
