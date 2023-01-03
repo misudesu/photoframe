@@ -4,6 +4,7 @@ import FilterResults from 'react-filter-search'
 import './Pagination.css'
 import {Link}  from "react-router-dom"
 import {BiSearch } from "react-icons/bi";
+import bezaye from '../asset/bezaye.png'
 export default function Images(props){
     const {data}=props;
  

@@ -8,6 +8,7 @@ import { storage, db, auth } from "../Server/Configer";
 import imageToBase64 from 'image-to-base64/browser';
 import { useAuthState } from "react-firebase-hooks/auth";
 import Pagination from "react-js-pagination";
+import bezaye from '../asset/bezaye.png'
 //require("bootstrap/less/bootstrap.less");
 import FrameSearch from './FrameSearch';
 const Search=()=>{
@@ -68,22 +69,16 @@ function handlePageChange(pageNumber) {
     </div> */}
    <h1 className= 'text-5xl w-[659px] text-[52px]  md:leading-[60px] font-bold text-center  mt-14'>Unlimited options give you the <span className='text-blue-500'> ultimate </span> flexibility </h1>
 </div>
-
 <div >
-
    <div className='flex flex-grow md:gap-4 mt-4  items-center justify-center   '>
- 
    <FrameSearch  data={search.data} value={search.value}/>
-   
    </div>
 </div>
 <div className='mt-5 align-left ml-32'> {user?<Link to='/uplood' className=" px-4 text-blue-800 ml-8 bg-blue-500 text-white mt-8 hover:bg-gray-700 hover:text-white ',
                           'px-3 py-2 rounded-md text-sm font-medium"><button>Add Frame </button></Link>:<Link to='/login' className=" px-4 text-blue-800 ml-8 hover:bg-gray-700 hover:text-white ',
                           'px-3 py-2 rounded-md bg-blue-500 mt-5 text-white text-sm font-medium"><button>Add Frame </button></Link>}
                           </div>   
-
-                          <div className='flex justify-between'>
-                        
+                          <div className='flex justify-between'>    
                              </div>
         </div>
     )

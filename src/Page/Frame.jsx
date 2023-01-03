@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import imageToBase64 from 'image-to-base64/browser';
+import bezaye from '../asset/bezaye.png'
 import interact from "interactjs";
 import html2canvas from "html2canvas";
 import { FacebookButton, FacebookCount } from "react-social";
@@ -19,6 +20,9 @@ import { Stepper } from 'react-form-stepper';
 import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import downloadjs from 'downloadjs';
 const Frame = () => {
   // const {SelectedGraphics}=useParams();
  const { SelectedGraphics } = useLocation().state;
@@ -33,10 +37,26 @@ const Frame = () => {
   });
   const [fburl,setFburl]=useState();
   const [graphics, setGraphics] = useState(SelectedGraphics);
+
   const [value, setValue] = useState(false);
   const [notification, setNotify] = useState(null);
   const [zindex, setZindex] = useState("-3");
   const [opacity, setOpacity] = useState("1");
+
+  useEffect(()=>{
+  //   imageToBase64(bezaye) // Image URL
+  // .then(
+  //     (response) => {
+  //     //  setGraphics("data:image/png;base64,"+response);
+  //       console.log("data:image/png;base64,"+response)
+  //     }
+  // )
+  // .catch(
+  //     (error) => {
+  //         console.log(error); // Logs an error if there was one
+  //     }
+  // ) 
+  },[])
   const Inc = () => {
     setImage({ ...image, size: image.size + 10 });
   };
@@ -85,7 +105,8 @@ const storageRef = ref(storage,
     // });
    
     const screenshotTarget = document.getElementById("image");
-    html2canvas(screenshotTarget).then((canvas) => {
+    html2canvas(screenshotTarget).then((canvas) => { 
+      
       const base64image = canvas.toDataURL("image/png");
     // domtoimage.toPng(document.getElementById("image"),{quality:0.95})
     // .then(function (dataUrl){
@@ -196,11 +217,8 @@ function exports(){
       });
     });   
    } );
-  
   }
- 
 }
-
   return (
     <div>
        <ToastContainer />
@@ -222,7 +240,7 @@ function exports(){
                   className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
-                    backgroundImage: `url(${graphics})`,                 
+                   backgroundImage: `url( ${graphics} )`,                 
                     overflow: "hidden",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center center",
@@ -230,7 +248,7 @@ function exports(){
                     left: "0px",
                     overflow: "hidden",
                   }}
-                
+                src={graphics}
                 > 
   </div> 
                 <div 
