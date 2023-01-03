@@ -177,13 +177,18 @@ const storageRef = ref(storage,
 //document.body.appendChild(images);
   //console.log(images)
   
-  window.devicePixelRatio = 2;
-  htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
-  .then(function (dataUrl) {
-    downloadjs(dataUrl, 'download.png', 'image/png');
-  });
-  // html2canvas(document.querySelector("#image")).then(canvas => {
-  //  const base64images = canvas.toDataURL();
+  //window.devicePixelRatio = 2;
+  // htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
+  // .then(function (dataUrl) {
+  //  // downloadjs(dataUrl, 'download.png', 'image/png');
+  //   var anchor = document.createElement("a");
+  //       anchor.setAttribute("href", dataUrl);
+  //       anchor.setAttribute("download", "my-image.png");
+  //     anchor.click();
+  //       anchor.remove();
+  // });
+   html2canvas(document.querySelector("#image"),{ quality: 0.95 }).then(canvas => {
+    const base64images = canvas.toDataURL();
 // //var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
 
 //   // var extra_canvas = document.createElement("canvas");
@@ -195,14 +200,14 @@ const storageRef = ref(storage,
 //   //       var img = document.createElement('img');
 //   //       img.setAttribute('src', dataURL);       
 //        // document.body.appendChild(newData);
-//   var anchor = document.createElement("a");
-//         anchor.setAttribute("href", base64images);
-//         anchor.setAttribute("download", "my-image.png");
-//       anchor.click();
-//         anchor.remove();
+  var anchor = document.createElement("a");
+        anchor.setAttribute("href", base64images);
+        anchor.setAttribute("download", "my-image.png");
+      anchor.click();
+        anchor.remove();
 // downloadjs(base64images, 'download.png', 'image/png');
 //    });
-//});
+});
   };
  
   const handleImageChange = (e) => {
@@ -324,9 +329,11 @@ function exports(){
   htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
   .then(function (dataUrl) {
     //downloadjs(dataUrl, 'download.png', 'image/png');
+   
     const storage = getStorage();
     const storageRef = ref(storage,
       `/Temp/${Date.now()}${image.image}`);
+      
     uploadString(storageRef, dataUrl, 'data_url').then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         toast('Process completed You can  Now Share!');

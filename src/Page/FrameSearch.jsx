@@ -4,6 +4,7 @@ import FilterResults from 'react-filter-search'
 import './Pagination.css'
 import {Link}  from "react-router-dom"
 import {BiSearch } from "react-icons/bi";
+import { identifier } from '@babel/types';
 export default function Images(props){
     const {data}=props;
  
@@ -49,16 +50,24 @@ export default function Images(props){
             <div className={`flex flex-wrap items-center justify-center mx-auto md:w-12/12 w-3/3 h-scren ${
               results.length > 4 ? "lg:w-12/12 h-scren" : ""
           }   `}>
-              {results.map(el => (
+              {results.length===0?(
+                <p>Loding Please wait...</p>
+              ):(
+                results.map(
+                  ({
+id,
+base64Frame,
+Name,
+                })=>( 
                 <div className=''>                           
-        <Link to={`/frame`} state={{SelectedGraphics:el.base64Frame}}>
+        <Link to={`/frame`} state={{SelectedGraphics:base64Frame}}>
            <div key={results.length} className=' rounded-xl bg-[#F8FAFC] shadow-sm hover:bg-black shadow  mt-5  p-2 mx-3 md:mx-0 '>
-   <img src={el.base64Frame} className='w-32 md:w-48 '  alt={el.Name} />
-  <p className='text-center'>{el.Name}</p> 
+   <img src={base64Frame} className='w-32 md:w-48 '  alt={Name} />
+  <p className='text-center'>{Name}</p> 
    </div>
    </Link>
 </div>
-      ))}
+    )))}
             </div>
           )}
         />
