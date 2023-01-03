@@ -178,7 +178,7 @@ const storageRef = ref(storage,
   //console.log(images)
   
   window.devicePixelRatio = 2;
-  htmlToImage.toPng(document.getElementById("image"),{ quality: 0.95 })
+  htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
   .then(function (dataUrl) {
     downloadjs(dataUrl, 'download.png', 'image/png');
   });
@@ -319,9 +319,9 @@ function exports(){
   }else{
     toast('Please wait request processing...')
   
-    const screenshotTarget = document.getElementById("image");
+  
     window.devicePixelRatio = 2;
-  htmlToImage.toPng(document.getElementById("image"),{ quality: 0.95 })
+  htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
   .then(function (dataUrl) {
     //downloadjs(dataUrl, 'download.png', 'image/png');
     const storage = getStorage();
