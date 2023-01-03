@@ -29,7 +29,7 @@ const Frame = () => {
  const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
     image: "one",
-    size: 600,
+    size: 400,
     sizesm:280,
     orentation: "",
     rotate: "0",
@@ -105,22 +105,22 @@ const storageRef = ref(storage,
     //   //el.style.backgroundImage=`url(${SelectedGraphics})`;
     //  // el.style.backgroundSize="560px,560px"
     // });
-    const screenshotTargeti = document.querySelectorAll("#export").forEach(el=>{
-      const screenshotTarget = document.querySelectorAll("#image").forEach(ei=>{
-        const screenshotTargeti = document.querySelectorAll("#export").forEach(eg=>{
-     // el.style.backgroundImage=`url(${SelectedGraphics})`;
+  //   const screenshotTargeti = document.querySelectorAll("#export").forEach(el=>{
+  //     const screenshotTarget = document.querySelectorAll("#image").forEach(ei=>{
+  //       const screenshotTargeti = document.querySelectorAll("#export").forEach(eg=>{
+  //    // el.style.backgroundImage=`url(${SelectedGraphics})`;
    
-      el.style. backgroundImage= `url(${image.image})`;
-      el.style.touchAction= "none";
-      el.style. userselect= "none";
-      el.style. backgroundSize=`${image.wh}px,${image.wh}px` 
-      el.style.transform = ei.style.transform;
-    el.style. width= '800px';
-      el.style. height= '800px';
-      el.style. backgroundRepeat= "no-repeat";
-    });
-    });
-  });
+  //     el.style. backgroundImage= `url(${image.image})`;
+  //     el.style.touchAction= "none";
+  //     el.style. userselect= "none";
+  //     el.style. backgroundSize=`${image.wh}px,${image.wh}px` 
+  //     el.style.transform = ei.style.transform;
+  //   el.style. width= '800px';
+  //     el.style. height= '800px';
+  //     el.style. backgroundRepeat= "no-repeat";
+  //   });
+  //   });
+  // });
 
     // const yu= document.createElement(screenshotTarget);
   
@@ -177,37 +177,37 @@ const storageRef = ref(storage,
 //document.body.appendChild(images);
   //console.log(images)
   
-  //window.devicePixelRatio = 2;
-  // htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
-  // .then(function (dataUrl) {
-  //  // downloadjs(dataUrl, 'download.png', 'image/png');
-  //   var anchor = document.createElement("a");
-  //       anchor.setAttribute("href", dataUrl);
-  //       anchor.setAttribute("download", "my-image.png");
-  //     anchor.click();
-  //       anchor.remove();
-  // });
-   html2canvas(document.querySelector("#image"),{ quality: 0.95 }).then(canvas => {
-    const base64images = canvas.toDataURL();
-// //var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
+  window.devicePixelRatio = 2;
+  htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
+  .then(function (dataUrl) {
+    downloadjs(dataUrl, 'download.png', 'image/png');
+    // var anchor = document.createElement("a");
+    //     anchor.setAttribute("href", dataUrl);
+    //     anchor.setAttribute("download", "my-image.png");
+    //   anchor.click();
+    //     anchor.remove();
+  });
+//    html2canvas(document.querySelector("#image"),{ quality: 0.95 }).then(canvas => {
+//     const base64images = canvas.toDataURL();
+// // //var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
 
-//   // var extra_canvas = document.createElement("canvas");
-//   //       extra_canvas.setAttribute('width',500);
-//   //       extra_canvas.setAttribute('height',500);
-//   //       var ctx = extra_canvas.getContext('2d');
-//   //       ctx.drawImage(canvas,0,0,500, 500,0,0,800,800);
-//   //       var dataURL = extra_canvas.toDataURL();
-//   //       var img = document.createElement('img');
-//   //       img.setAttribute('src', dataURL);       
-//        // document.body.appendChild(newData);
-  var anchor = document.createElement("a");
-        anchor.setAttribute("href", base64images);
-        anchor.setAttribute("download", "my-image.png");
-      anchor.click();
-        anchor.remove();
+// //   // var extra_canvas = document.createElement("canvas");
+// //   //       extra_canvas.setAttribute('width',500);
+// //   //       extra_canvas.setAttribute('height',500);
+// //   //       var ctx = extra_canvas.getContext('2d');
+// //   //       ctx.drawImage(canvas,0,0,500, 500,0,0,800,800);
+// //   //       var dataURL = extra_canvas.toDataURL();
+// //   //       var img = document.createElement('img');
+// //   //       img.setAttribute('src', dataURL);       
+// //        // document.body.appendChild(newData);
+//   var anchor = document.createElement("a");
+//         anchor.setAttribute("href", base64images);
+//         anchor.setAttribute("download", "my-image.png");
+//       anchor.click();
+//         anchor.remove();
 // downloadjs(base64images, 'download.png', 'image/png');
 //    });
-});
+//});
   };
  
   const handleImageChange = (e) => {
@@ -353,14 +353,13 @@ function exports(){
   return (
     <div >
        <ToastContainer />
-      <div className="container-fluid mt-5">
-        <div className="row  ">
+       <div className="container-fluid">
+        <div className="row align-items-center m-4">
           <div className="col-12 col-lg-6 col-md-6 ">
-            <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[340px] h-[360px] md:w-[500px] md:h-[500px] shadow-lg justify-center items-center mx-auto ">
+            <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[280px] h-[280px] md:w-[400px] md:h-[400px] shadow-lg justify-center items-center mx-auto ">
               <div
-                 
-                className="image relative justify-center mx-auto shadow-lg w-[320px] h-[340px] md:w-[480px] md:h-[480px] mt-2 "     
-                style={{
+                className="relative justify-center mx-auto shadow-lg w-[260px] h-[260px] md:w-[380px] md:h-[380px] mt-2 "
+               style={{
                   backgroundColor: "#fff",
                   overflow: "hidden",
                   zIndex: "1",
@@ -368,7 +367,7 @@ function exports(){
               >
                 <div
                id="image"
-                  className="w-[320px] h-[340px]  md:h-full   md:w-full  bg-smolle md:bg-contain "
+               className="w-[260px] h-[260px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
                   style={{
                     position: "absolute",
                     backgroundImage: `url(${graphics})`,                 
