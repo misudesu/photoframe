@@ -19,20 +19,26 @@ import { Stepper } from 'react-form-stepper';
 import { saveAsPng, saveAsJpeg } from 'save-html-as-image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import downloadjs from 'downloadjs';
+import {ShareSocial} from 'react-share-social' 
+ 
 const Frame = () => {
   // const {SelectedGraphics}=useParams();
  const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
     image: "one",
-    size: 400,
+    size: 600,
     sizesm:280,
     orentation: "",
     rotate: "0",
     zindex: "-z-50",
     export:false,
     wh:800,
-    ww:800,
+    ww:200,
     positiony:'',
+    screen:'false',
   });
   const position = { x: 0, y: 0 };
 
@@ -160,7 +166,7 @@ const storageRef = ref(storage,
 //       //anchor.remove();
 //    });
 
-html2canvas(document.querySelector("#image")).then(canvas => {
+//html2canvas(document.querySelector("#image")).then(canvas => {
   //document.body.appendChild(canvas.toDataURL());
 //   let uiui=document.getElementById("image");
 // let images = new Image();
@@ -170,26 +176,33 @@ html2canvas(document.querySelector("#image")).then(canvas => {
 // images.setAttribute('style',`background-image:url(${ canvas.toDataURL("image/jpeg",1.0)});background-repeat: no-repeat; background-size:100%,100%`);
 //document.body.appendChild(images);
   //console.log(images)
-  html2canvas(document.querySelector("#ui")).then(canvas => {
-  const base64images = canvas.toDataURL();
-var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
-
-  // var extra_canvas = document.createElement("canvas");
-  //       extra_canvas.setAttribute('width',500);
-  //       extra_canvas.setAttribute('height',500);
-  //       var ctx = extra_canvas.getContext('2d');
-  //       ctx.drawImage(canvas,0,0,500, 500,0,0,800,800);
-  //       var dataURL = extra_canvas.toDataURL();
-  //       var img = document.createElement('img');
-  //       img.setAttribute('src', dataURL);       
-       // document.body.appendChild(newData);
-  var anchor = document.createElement("a");
-        anchor.setAttribute("href", newData);
-        anchor.setAttribute("download", "my-image.png");
-      anchor.click();
-        anchor.remove();
+  
+  window.devicePixelRatio = 2;
+  htmlToImage.toPng(document.getElementById("image"),{ quality: 0.95 })
+  .then(function (dataUrl) {
+    downloadjs(dataUrl, 'download.png', 'image/png');
   });
-});
+  // html2canvas(document.querySelector("#image")).then(canvas => {
+  //  const base64images = canvas.toDataURL();
+// //var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
+
+//   // var extra_canvas = document.createElement("canvas");
+//   //       extra_canvas.setAttribute('width',500);
+//   //       extra_canvas.setAttribute('height',500);
+//   //       var ctx = extra_canvas.getContext('2d');
+//   //       ctx.drawImage(canvas,0,0,500, 500,0,0,800,800);
+//   //       var dataURL = extra_canvas.toDataURL();
+//   //       var img = document.createElement('img');
+//   //       img.setAttribute('src', dataURL);       
+//        // document.body.appendChild(newData);
+//   var anchor = document.createElement("a");
+//         anchor.setAttribute("href", base64images);
+//         anchor.setAttribute("download", "my-image.png");
+//       anchor.click();
+//         anchor.remove();
+// downloadjs(base64images, 'download.png', 'image/png');
+//    });
+//});
   };
  
   const handleImageChange = (e) => {
@@ -290,6 +303,15 @@ console.log(width,height);
       setSearch({...search , data:frame});
     });
     },[]);  
+  //   useEffect(()=>{
+  // if(window.screen.availWidth<=768){
+  //   //setImage({...search , screen:'true'});
+  //   setImage({...search , size:'200'});
+  // }else{
+  //   //setImage({...search , screen:'false'});
+  //   setImage({...search , size:'400'});
+  // }
+  //   },[])
  const[notif,setNotificationTwo]=useState('')
 function exports(){
   if(image.image=='one'){
@@ -298,34 +320,39 @@ function exports(){
     toast('Please wait request processing...')
     setImage({...image,export:true})
     const screenshotTarget = document.getElementById("image");
-  //   html2canvas(screenshotTarget).then((canvas) => {
-  //     const base64image = canvas.toDataURL("image/png");
-  //   const storage = getStorage();
-  //   const storageRef = ref(storage,
-  //     `/Temp/${Date.now()}${image.image}`);
-  //   uploadString(storageRef, base64image, 'data_url').then((snapshot) => {
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       toast('Process completed You can  Now Share!');
-  //       setFburl(url);
-  //       setImage({...image,export:true})
-  //     });
-  //   });   
-  //  } );
+    window.devicePixelRatio = 2;
+  htmlToImage.toPng(document.getElementById("image"),{ quality: 0.95 })
+  .then(function (dataUrl) {
+    //downloadjs(dataUrl, 'download.png', 'image/png');
+    const storage = getStorage();
+    const storageRef = ref(storage,
+      `/Temp/${Date.now()}${image.image}`);
+    uploadString(storageRef, dataUrl, 'data_url').then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        toast('Process completed You can  Now Share!');
+        setFburl(url);
+        setImage({...image,export:true})
+      });
+  
+   } );
+  });
+   
+   
   
   }
  
 }
 
   return (
-    <div>
+    <div >
        <ToastContainer />
-      <div className="container-fluid">
-        <div className="row align-items-center m-4">
+      <div className="container-fluid mt-5">
+        <div className="row  ">
           <div className="col-12 col-lg-6 col-md-6 ">
-            <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[280px] h-[280px] md:w-[400px] md:h-[400px] shadow-lg justify-center items-center mx-auto ">
+            <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[340px] h-[360px] md:w-[500px] md:h-[500px] shadow-lg justify-center items-center mx-auto ">
               <div
-              
-                className="image relative justify-center mx-auto shadow-lg w-[260px] h-[260px] md:w-[380px] md:h-[380px] mt-2 "     
+                 
+                className="image relative justify-center mx-auto shadow-lg w-[320px] h-[340px] md:w-[480px] md:h-[480px] mt-2 "     
                 style={{
                   backgroundColor: "#fff",
                   overflow: "hidden",
@@ -333,8 +360,8 @@ function exports(){
                 }}
               >
                 <div
-                 id="g"
-                  className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
+               id="image"
+                  className="w-[320px] h-[340px]  md:h-full   md:w-full  bg-smolle md:bg-contain "
                   style={{
                     position: "absolute",
                     backgroundImage: `url(${graphics})`,                 
@@ -347,25 +374,26 @@ function exports(){
                   }}
                 
                 > 
-  </div> 
+  
  
 
  
                 <div 
-                //  id="draggable"
-                 id="image"
-                  className={`draggable bg-auto w-full h-full `}
+                 id="draggable"
+               
+                  className={`draggable   `}
+                  
+
                   style={{
                     position: "absolute",
                     backgroundImage: `url(${image.image})`,
                     touchAction: "none",
-                    userselect: "none",
-                    backgroundSize: `  ${image.size}px,${image.size}px`,
-                  
+                    userselect: "none", 
+                    backgroundSize: `${image.size}px,${image.size}px`,                 
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "top ",
                     transform: "rotate(" + image.rotate + "deg)",
-                    resize: "both",
+                   // resize: "both",
                     width: `${image.size}px`,
                     height: `${image.size}px`,
                     top: "0px",
@@ -379,6 +407,7 @@ function exports(){
                                
                                 
                                   </div>
+                                  </div> 
               </div>
             </div>
           </div>
@@ -389,27 +418,26 @@ function exports(){
            
             <label name='FrameImage' className="flex flex-col w-full h-20 mt-5 md:h-32 border-4 border-dashed  hover:bg-gray-100 hover:border-gray-300">
                    
-                    <div className="flex flex-col items-center justify-center md:pt-7">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            className="w-12 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                            Select a photo</p>
-                            <input
-                            id="imgwh"
-              type="file"
-              placeholder="image"
-              className="opacity-0 "
-              name="image"
-              accept="image/*"
-              onChange={(e) => handleImageChange(e)}
-            />
-            </div>
-             </label>
+                   <div className="flex flex-col items-center justify-center md:pt-7">
+                       <svg xmlns="http://www.w3.org/2000/svg"
+                           className="w-8 h-8 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20"
+                           fill="currentColor">
+                           <path fill-rule="evenodd"
+                               d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                               clip-rule="evenodd" />
+                       </svg>
+                       <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                           Select a photo</p>
+                           <input
+             type="file"
+             placeholder="image"
+             className="opacity-0 "
+             name="image"
+             accept="image/*"
+             onChange={(e) => handleImageChange(e)}
+           />
+           </div>
+            </label>
               <div className=" gap-4 mt-3 md:m-4">
                 {options.map((option, index) => {
                   return (
@@ -465,41 +493,44 @@ function exports(){
                 <div></div>
               )}
               <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
+                {image.export==false? 
               <button
-                  className="bg-blue-400 py-1 btn btn-primary rounded-md text-white text-sm font-bold px-3"
+                  className="bg-blue-400 py-1 btn btn-secondary rounded-md text-white text-sm font-bold px-3"
                   onClick={exports}
                 >
                   Next
                 </button>
+                :''}
                 <span className='mr-4'>{notif}</span>
               </div>
                
               {/* choose file and create Frame Menu */}
-           {image.export?  <div className="d-flex  align-items-end items-center mx-auto   gap-4 mt-4 ">
-            
-                <button id='save'
-                  className="bg-blue-400 py-1 btn btn-primary rounded-md text-white text-sm font-bold px-3"
+           {image.export?  <div className="   align-items-end items-center mx-auto  gap-4 mt-4 ">
+              <button
+                id='save'
+                  className="bg-blue-400 w-full py-1 btn btn-secondary rounded-md text-white text-sm font-bold px-3"
                   onClick={download}
                 >
-                  Download
+                 Download
                 </button>
-               
-                <FacebookButton url={fburl} className='flex gap-4 btn btn-primery' appId='829828258275482'>
+                <ShareSocial 
+                 title={'sharing happiness'} 
+     url ={fburl}
+     socialTypes={['facebook','twitter','reddit','linkedin','telegram']}
+   />
+                {/* <FacebookButton url={ fburl} className='flex gap-4 btn btn-primery' appId='829828258275482'>
                 <BsShareFill size={20}/>
        
-      </FacebookButton>
+      </FacebookButton> */}
               </div>:'' }
               {/*  */}
             </div>
           </div>
         </div>
-
-      
-
-        <div className="relative ui h-[800px] w-[800px] overflow-hidden " id="ui">
+     {/* <div className="relative ui h-[800px] w-[800px] overflow-hidden hidden" id="ui">
         <div  className='absolute w-full h-full'  id="export"></div>
           <img src={SelectedGraphics} className='absolute' id="export1" />    
-        </div>
+        </div> */}
       
       </div>
     </div>
