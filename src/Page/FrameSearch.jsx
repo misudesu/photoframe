@@ -51,7 +51,7 @@ export default function Images(props){
               results.length > 4 ? "lg:w-12/12 h-scren" : ""
           }   `}>
               {results.length===0?(
-                <p>Loding Please wait...</p>
+                <p className='text-red-500'>Loading Please wait...</p>
               ):(
                 results.map(
                   ({

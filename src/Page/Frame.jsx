@@ -177,37 +177,37 @@ const storageRef = ref(storage,
 //document.body.appendChild(images);
   //console.log(images)
   
-  //window.devicePixelRatio = 2;
-  // htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
-  // .then(function (dataUrl) {
-  //  // downloadjs(dataUrl, 'download.png', 'image/png');
-  //   var anchor = document.createElement("a");
-  //       anchor.setAttribute("href", dataUrl);
-  //       anchor.setAttribute("download", "my-image.png");
-  //     anchor.click();
-  //       anchor.remove();
-  // });
-   html2canvas(document.querySelector("#image"),{ quality: 0.95 }).then(canvas => {
-    const base64images = canvas.toDataURL();
-// //var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
+  window.devicePixelRatio = 2;
+  htmlToImage.toPng(document.querySelector("#image"),{ quality: 0.95 })
+  .then(function (dataUrl) {
+    downloadjs(dataUrl, 'download.png', 'image/png');
+    // var anchor = document.createElement("a");
+    //     anchor.setAttribute("href", dataUrl);
+    //     anchor.setAttribute("download", "my-image.png");
+    //   anchor.click();
+    //     anchor.remove();
+  });
+//    html2canvas(document.querySelector("#image"),{ quality: 0.95 }).then(canvas => {
+//     const base64images = canvas.toDataURL();
+// // //var newData=base64images.replace(/^data.image\/png/,"data:application/octet-stream");
 
-//   // var extra_canvas = document.createElement("canvas");
-//   //       extra_canvas.setAttribute('width',500);
-//   //       extra_canvas.setAttribute('height',500);
-//   //       var ctx = extra_canvas.getContext('2d');
-//   //       ctx.drawImage(canvas,0,0,500, 500,0,0,800,800);
-//   //       var dataURL = extra_canvas.toDataURL();
-//   //       var img = document.createElement('img');
-//   //       img.setAttribute('src', dataURL);       
-//        // document.body.appendChild(newData);
-  var anchor = document.createElement("a");
-        anchor.setAttribute("href", base64images);
-        anchor.setAttribute("download", "my-image.png");
-      anchor.click();
-        anchor.remove();
+// //   // var extra_canvas = document.createElement("canvas");
+// //   //       extra_canvas.setAttribute('width',500);
+// //   //       extra_canvas.setAttribute('height',500);
+// //   //       var ctx = extra_canvas.getContext('2d');
+// //   //       ctx.drawImage(canvas,0,0,500, 500,0,0,800,800);
+// //   //       var dataURL = extra_canvas.toDataURL();
+// //   //       var img = document.createElement('img');
+// //   //       img.setAttribute('src', dataURL);       
+// //        // document.body.appendChild(newData);
+//   var anchor = document.createElement("a");
+//         anchor.setAttribute("href", base64images);
+//         anchor.setAttribute("download", "my-image.png");
+//       anchor.click();
+//         anchor.remove();
 // downloadjs(base64images, 'download.png', 'image/png');
 //    });
-});
+//});
   };
  
   const handleImageChange = (e) => {
