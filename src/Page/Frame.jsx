@@ -105,22 +105,22 @@ const storageRef = ref(storage,
     //   //el.style.backgroundImage=`url(${SelectedGraphics})`;
     //  // el.style.backgroundSize="560px,560px"
     // });
-    const screenshotTargeti = document.querySelectorAll("#export").forEach(el=>{
-      const screenshotTarget = document.querySelectorAll("#image").forEach(ei=>{
-        const screenshotTargeti = document.querySelectorAll("#export").forEach(eg=>{
-     // el.style.backgroundImage=`url(${SelectedGraphics})`;
+  //   const screenshotTargeti = document.querySelectorAll("#export").forEach(el=>{
+  //     const screenshotTarget = document.querySelectorAll("#image").forEach(ei=>{
+  //       const screenshotTargeti = document.querySelectorAll("#export").forEach(eg=>{
+  //    // el.style.backgroundImage=`url(${SelectedGraphics})`;
    
-      el.style. backgroundImage= `url(${image.image})`;
-      el.style.touchAction= "none";
-      el.style. userselect= "none";
-      el.style. backgroundSize=`${image.wh}px,${image.wh}px` 
-      el.style.transform = ei.style.transform;
-    el.style. width= '800px';
-      el.style. height= '800px';
-      el.style. backgroundRepeat= "no-repeat";
-    });
-    });
-  });
+  //     el.style. backgroundImage= `url(${image.image})`;
+  //     el.style.touchAction= "none";
+  //     el.style. userselect= "none";
+  //     el.style. backgroundSize=`${image.wh}px,${image.wh}px` 
+  //     el.style.transform = ei.style.transform;
+  //   el.style. width= '800px';
+  //     el.style. height= '800px';
+  //     el.style. backgroundRepeat= "no-repeat";
+  //   });
+  //   });
+  // });
 
     // const yu= document.createElement(screenshotTarget);
   

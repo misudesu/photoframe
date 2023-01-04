@@ -31,8 +31,8 @@ return(
 <button className=' gap-2 text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>   select Frame Now</button>
 </Link>
 <a href='https:\\t.me/add_frame_bot'>
-  <p className='flex gap-2 justify-center mx-auto'> <AiFillApple size={20}/></p>
-<button className=' text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>only iphone</button>
+  <p className='flex gap-2 justify-center mx-auto'> <AiFillApple size={20}/>telegram bot</p>
+<button className=' text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>select Frame Now</button>
 </a>
 </div>
 
