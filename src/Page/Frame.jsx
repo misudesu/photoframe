@@ -236,9 +236,9 @@ function exports(){
                   zIndex: "1",
                 }}
               >
-                <div
-                 
-                  className="w-[260px] h-[270px] md:w-[380px] md:h-[380px] bg-smolle md:bg-large "
+                 <div
+               id="image"
+                  className="w-[320px] h-[340px]  md:h-full   md:w-full  bg-smolle md:bg-contain "
                   style={{
                     position: "absolute",
                    backgroundImage: `url( ${graphics} )`,                 
