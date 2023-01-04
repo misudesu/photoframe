@@ -400,7 +400,7 @@ function exports(){
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "top ",
                     transform: "rotate(" + image.rotate + "deg)",
-                   // resize: "both",
+                    resize: "both",
                     width: `${image.size}px`,
                     height: `${image.size}px`,
                     top: "0px",
@@ -523,7 +523,7 @@ function exports(){
                 <ShareSocial 
                  title={'sharing happiness'} 
      url ={fburl}
-     socialTypes={['facebook','twitter','reddit','linkedin','telegram']}
+     socialTypes={['facebook','twitter','linkedin','telegram','whatsapp']}
    />
                 {/* <FacebookButton url={ fburl} className='flex gap-4 btn btn-primery' appId='829828258275482'>
                 <BsShareFill size={20}/>
