@@ -29,7 +29,7 @@ const Frame = () => {
  const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
     image: "one",
-    size: 600,
+    size: 550,
     sizesm:280,
     orentation: "",
     rotate: "0",
