@@ -29,104 +29,85 @@ export default function Upload(){
         setformData({ ...formData, [e.target.name]: e.target.value });
       };
       const handleImageChange = (e) => {
-        setformData({ ...formData, [e.target.name]: e.target.files[0] });
-        // var upl = document.getElementById("file_id");
-        // var max = 500000;
+        // setformData({ ...formData, [e.target.name]: e.target.files[0] });
+        var upl = document.getElementById("file_id");
+        var max = 500000;
     
-      //   if(upl.files[0].size > max)
-      //   {
-      //     toast("File too big! must be less then 500 kb")
+        if(upl.files[0].size > max)
+        {
+          toast("File too big! must be less then 500 kb")
          
-      //      upl.value = "";
-      //   }else{
+           upl.value = "";
+        }else{
         
          
-      //   var file = document.querySelector('input[type=file]')['files'][0];
-      //   var reader = new FileReader();
-      //   var baseString;
-      //   reader.onloadend = function () {
-      //       baseString = reader.result;
+        var file = document.querySelector('input[type=file]')['files'][0];
+        var reader = new FileReader();
+        var baseString;
+        reader.onloadend = function () {
+            baseString = reader.result;
         
-      //       setformData({...formData, base64Frame : baseString});
-      //   };
-      // const frame=  reader.readAsDataURL(file);
+            setformData({...formData, base64Frame : baseString});
+        };
+      const frame=  reader.readAsDataURL(file);
    
-      //   }
+        }
       };
       const articleRef = collection(db, "Frame");
       const handlePublish = async() => {
       
-  if(formData.Name!=null && formData.Discription!=null && formData.FrameImage!=null){
+  if(formData.Name!=null && formData.Discription!=null && formData.base64Frame!=null){
     toast('Please wait request processing');
-// try {
-// await addDoc(collection(db, "Frame"),{     
-//     Name:formData.Name,
-//     Key:users?.email,
-//     base64Frame:formData.base64Frame,  
-//     Discription:formData.Discription,       
-//      createdAt: Timestamp.now().toDate(),
-//        })
-//          .then(() => {
-//           setProgress('')
-//           toast('Frame added successfully');
-//          })
-//          .catch((err) => {
-//            // alert("Error adding article", { type: "error" });
-//            toast(err);
-//          });
-// }catch(e){
-//   toast(e, { type: "error" });
-// } 
-        const storageRef = ref(
-          storage,
-          `/Frame/${Date.now()}${formData.FrameImage.name}`
-        );
+try {
+await addDoc(collection(db, "Frame"),{     
+    Name:formData.Name,
+    Key:users?.email,
+    base64Frame:formData.base64Frame,  
+    Discription:formData.Discription,       
+     createdAt: Timestamp.now().toDate(),
+       })
+         .then(() => {
+          setProgress('')
+          toast('Frame added successfully');
+         })
+         .catch((err) => {
+           // alert("Error adding article", { type: "error" });
+           toast(err);
+         });
+}catch(e){
+  toast(e, { type: "error" });
+} 
+        // const storageRef = ref(
+        //   storage,
+        //   `/Frame/${Date.now()}${formData.FrameImage.name}`
+        // );
 
-        const uploadImage = uploadBytesResumable(storageRef, formData.FrameImage);
-        uploadImage.on(
-         "state_changed",
-         (snapshot) => {
-           const progressPercent = Math.round(
-             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-           );
-           setProgress('Please wait request processing');
-         },
-         (err) => {
-           console.log(err);
-         },
-         () => {
-            getDownloadURL(uploadImage.snapshot.ref).then((url) => {
-                const articleRef = collection(db, "Frame");
+        // const uploadImage = uploadBytesResumable(storageRef, formData.FrameImage);
+        // uploadImage.on(
+        //  "state_changed",
+        //  (snapshot) => {
+        //    const progressPercent = Math.round(
+        //      (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        //    );
+        //    setProgress('Please wait request processing');
+        //  },
+        //  (err) => {
+        //    console.log(err);
+        //  },
+        //  () => {
+        //     getDownloadURL(uploadImage.snapshot.ref).then((url) => {
+        //         const articleRef = collection(db, "Frame");
              
-                  //
-                  addDoc(articleRef, {
-                    
-                    Name:formData.Name,
-                        Key:users?.email,
-                        base64Frame:url,  
-                        Discription:formData.Discription,       
-                         createdAt: Timestamp.now().toDate(),
-                    })
-                      .then(() => {
-                        toast('Frame added successfully');
-                       setformData({...formData,Name:''})
-                       setformData({...formData,FrameImage:''})
-                       setformData({...formData,Discription:''})
-                      })
-                      .catch((err) => {
-                        alert("Error adding article", { type: "error" });
-                      });
+        //           //
               
-            }
-            );
-            //
-            }
-            );
-          }
-          // else{
-          // //   setProgress('INPUT filed is Empty')
-          // //  }
-          else{
+        //     }
+        //     );
+        //     //
+        //     }
+        //     );
+          // }else{
+          //   setProgress('INPUT filed is Empty')
+           }else{
             toast('All information Requerd');
            }
 
@@ -186,15 +167,15 @@ return(
                         <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                             Select a photo</p>
                     </div>
-                    <input  type='file' name="FrameImage" id='file_id'   className="opacity-0"  required accept=".png"
+                    <input  type='file' name="FrameImage" id='file_id'  className="opacity-0"  required accept=".png"
                            onChange={(e) => handleImageChange(e)} />
                
                 </label>
             </div>
            
-            {formData.FrameImage? <img src={URL.createObjectURL(formData.FrameImage)} className='w-28 h-28 rounded-md p-1 '/>:''}
-            <input className='form-control mt-3' type='text' name='Name' value={formData.Name} placeholder='Frame Name' required onChange={(e) => handleChange(e)} />
-            <textarea className='form-control mt-3' row='20' col='40' type='text' value={formData.Discription} name='Discription' placeholder='Frame Discrption'  required onChange={(e) => handleChange(e)} />
+            {formData.base64Frame? <img src={formData.base64Frame} className='w-28 h-28 rounded-md p-1 '/>:''}
+            <input className='form-control mt-3' type='text' name='Name' placeholder='Frame Name' required onChange={(e) => handleChange(e)} />
+            <textarea className='form-control mt-3' row='20' col='40' type='text' name='Discription' placeholder='Frame Discrption'  required onChange={(e) => handleChange(e)} />
            
             </form>
        
