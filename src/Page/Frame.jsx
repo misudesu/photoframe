@@ -222,13 +222,14 @@ function exports(){
   return (
     <div>
        <ToastContainer />
-      <div className="container-fluid">
-        <div className="row align-items-center m-4">
+       <div className="container-fluid mt-5">
+        <div className="row  ">
           <div className="col-12 col-lg-6 col-md-6 ">
-            <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[280px] h-[280px] md:w-[400px] md:h-[400px] shadow-lg justify-center items-center mx-auto ">
+            <div className="border-dashed border-2 border-indigo-600 m-4 bg-white rounded-md w-[340px] h-[360px] md:w-[500px] md:h-[500px] shadow-lg justify-center items-center mx-auto ">
               <div
-                className="relative justify-center mx-auto shadow-lg w-[260px] h-[260px] md:w-[380px] md:h-[380px] mt-2 "
-                id="image"
+                 
+                className="image relative justify-center mx-auto shadow-lg w-[320px] h-[340px] md:w-[480px] md:h-[480px] mt-2 "     
+               id="image"
                 style={{
                   backgroundColor: "#fff",
                   overflow: "hidden",
