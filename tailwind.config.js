@@ -10,8 +10,8 @@ module.exports = {
       'auto': 'auto',
       'cover': 'cover',
       'contain': 'contain',
-      'smolle': '260px',
-      'large': '400px',
+      'smolle': '340px',
+      'large': '550px',
     }
   },
   plugins: [],
