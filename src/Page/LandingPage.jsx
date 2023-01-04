@@ -3,7 +3,7 @@ import {BiSearch } from "react-icons/bi";
 import Database from './Database'
 import YouTube from 'react-youtube';
 import {Link} from 'react-router-dom'
-
+import { AiFillAndroid,AiFillApple,AiFillAppstore } from "react-icons/ai";
 import { BsFillRecordFill } from "react-icons/bs";
 const LandingPage=()=>{
   const opts = {
@@ -24,10 +24,16 @@ return(
 <div>
 <p className='text-3xl font-bold text-center md:text-left'>Find your design dream Frame</p>
 <p className='w-[400px] mt-4 mb-4  text-justify text-center md:text-left'>{Database.firstDis}</p>
-<div className='flex justify-center items-center mx-auto'>
+<div className='flex gap-2 justify-center items-center mx-auto'>
+ 
 <Link to='/search'>
-<button className='text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>Select photo Frame Now</button>
+ <p className='flex gap-2 justify-center mx-auto'>Android<AiFillAndroid size={20}/> OR <AiFillAppstore size={20}/>PC </p>
+<button className=' gap-2 text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>   select Frame Now</button>
 </Link>
+<a href='https:\\t.me/add_frame_bot'>
+  <p className='flex gap-2 justify-center mx-auto'> <AiFillApple size={20}/>only iphone</p>
+<button className=' text-white rounded-md bg-blue-500 py-2 px-4 justify-center'>select Frame Now</button>
+</a>
 </div>
 </div>
 <img src={Database.image1} className='rounded-xl h-92 w-92'/>
