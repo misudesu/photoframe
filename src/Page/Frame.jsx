@@ -29,7 +29,7 @@ const Frame = () => {
  const { SelectedGraphics } = useLocation().state;
   const [image, setImage] = useState({
     image: "one",
-    size: 500,
+    size: 450,
     sizesm:280,
     orentation: "",
     rotate: "0",
@@ -520,11 +520,11 @@ function exports(){
                 >
                  Download
                 </button>
-                <ShareSocial 
+                {/* <ShareSocial 
                  title={'sharing happiness'} 
      url ={fburl}
      socialTypes={['facebook','twitter','linkedin','telegram','whatsapp']}
-   />
+   /> */}
                 {/* <FacebookButton url={ fburl} className='flex gap-4 btn btn-primery' appId='829828258275482'>
                 <BsShareFill size={20}/>
        
